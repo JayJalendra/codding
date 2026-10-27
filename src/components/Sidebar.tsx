@@ -1,9 +1,10 @@
+import type { ReactNode } from 'react';
 import { 
   LayoutDashboard,
   Atom, Dna, Orbit, Sparkles, Upload, Zap, FlaskConical, 
   Binary, Shapes, Landmark, Wrench, GraduationCap, Library, Heart, Activity, Cpu, Rocket, BookOpenText,
-  Search, ChevronDown, ChevronRight, Globe, X, Image as ImageIcon, Monitor, Sun, Moon,
-  BookOpen, Microscope as MicroscopeIcon, FlaskRound
+  Search, ChevronRight, Globe, X, Image as ImageIcon, Monitor, Sun, Moon,
+  BookOpen
 } from 'lucide-react';
 import { Topic } from '../types';
 import { motion, AnimatePresence } from 'motion/react';
@@ -11,13 +12,12 @@ import { HyperVisionLogo } from './HyperVisionLogo';
 import { useState, useMemo } from 'react';
 import { useStore } from '../store/useStore';
 import { useShallow } from 'zustand/react/shallow';
-import { SMOOTH_SPRING } from '../constants/animations';
 import { DEFAULT_THEME, WHITE_THEME } from '../constants/themes';
 
 interface SimItem {
   id: Topic;
   label: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   status?: 'Completed' | 'In Progress';
   isNew?: boolean;
 }
@@ -48,6 +48,229 @@ const CLASS_HIERARCHY: ClassGroup[] = [
       }
     ]
   },
+
+  // ── Class 1 ─────────────────────────────────────────────────────────────
+  {
+    className: 'Class 1',
+    emoji: '🌱',
+    subjects: [
+      {
+        subject: 'Our World',
+        color: 'emerald',
+        items: [
+          { id: 'Globe', label: 'Our Earth', icon: <Globe size={15} /> },
+        ]
+      },
+      {
+        subject: 'Our Body',
+        color: 'red',
+        items: [
+          { id: 'HumanBody', label: 'Human Body', icon: <Activity size={15} /> },
+        ]
+      },
+      {
+        subject: 'Mathematics',
+        color: 'blue',
+        items: [
+          { id: 'Geometry', label: 'Basic Shapes', icon: <Shapes size={15} /> },
+        ]
+      },
+    ]
+  },
+
+  // ── Class 2 ─────────────────────────────────────────────────────────────
+  {
+    className: 'Class 2',
+    emoji: '🌿',
+    subjects: [
+      {
+        subject: 'Our World',
+        color: 'emerald',
+        items: [
+          { id: 'Globe', label: 'Our Earth', icon: <Globe size={15} /> },
+          { id: 'Rainforest', label: 'Plants & Forests', icon: <Globe size={15} />, isNew: true },
+        ]
+      },
+      {
+        subject: 'Our Body',
+        color: 'red',
+        items: [
+          { id: 'HumanBody', label: 'Human Body', icon: <Activity size={15} /> },
+          { id: 'HumanHeart', label: 'Human Heart', icon: <Heart size={15} />, isNew: true },
+        ]
+      },
+      {
+        subject: 'Mathematics',
+        color: 'blue',
+        items: [
+          { id: 'Geometry', label: 'Shapes & Figures', icon: <Shapes size={15} /> },
+        ]
+      },
+    ]
+  },
+
+  // ── Class 3 ─────────────────────────────────────────────────────────────
+  {
+    className: 'Class 3',
+    emoji: '🌍',
+    subjects: [
+      {
+        subject: 'EVS – Environment',
+        color: 'emerald',
+        items: [
+          { id: 'Globe', label: 'Our Earth & Maps', icon: <Globe size={15} /> },
+          { id: 'Rainforest', label: 'Forests & Plants', icon: <Globe size={15} />, isNew: true },
+          { id: 'Desert', label: 'Desert Ecosystem', icon: <Globe size={15} />, isNew: true },
+        ]
+      },
+      {
+        subject: 'EVS – Our Body',
+        color: 'red',
+        items: [
+          { id: 'HumanBody', label: 'Our Body', icon: <Activity size={15} /> },
+        ]
+      },
+      {
+        subject: 'Mathematics',
+        color: 'blue',
+        items: [
+          { id: 'Geometry', label: 'Shapes & Geometry', icon: <Shapes size={15} /> },
+        ]
+      },
+    ]
+  },
+
+  // ── Class 4 ─────────────────────────────────────────────────────────────
+  {
+    className: 'Class 4',
+    emoji: '🔬',
+    subjects: [
+      {
+        subject: 'EVS – Science',
+        color: 'cyan',
+        items: [
+          { id: 'HumanBody', label: 'Human Body Systems', icon: <Activity size={15} /> },
+          { id: 'Microscope', label: 'Magnification & Lenses', icon: <Wrench size={15} /> },
+        ]
+      },
+      {
+        subject: 'EVS – Earth & Space',
+        color: 'sky',
+        items: [
+          { id: 'Globe', label: 'Earth & Maps', icon: <Globe size={15} /> },
+          { id: 'SolarSystem', label: 'Sun, Moon & Planets', icon: <Orbit size={15} /> },
+        ]
+      },
+      {
+        subject: 'Mathematics',
+        color: 'blue',
+        items: [
+          { id: 'Geometry', label: 'Solids & Shapes', icon: <Shapes size={15} /> },
+          { id: 'Fractals', label: 'Patterns in Nature', icon: <Binary size={15} /> },
+        ]
+      },
+    ]
+  },
+
+  // ── Class 5 ─────────────────────────────────────────────────────────────
+  {
+    className: 'Class 5',
+    emoji: '🚀',
+    subjects: [
+      {
+        subject: 'Science – Our Body',
+        color: 'red',
+        items: [
+          { id: 'HumanBody', label: 'Human Body', icon: <Activity size={15} /> },
+          { id: 'HumanHeart', label: 'Heart & Circulation', icon: <Heart size={15} />, isNew: true },
+        ]
+      },
+      {
+        subject: 'Science – Space',
+        color: 'indigo',
+        items: [
+          { id: 'SolarSystem', label: 'Solar System', icon: <Orbit size={15} /> },
+        ]
+      },
+      {
+        subject: 'Science – Earth',
+        color: 'emerald',
+        items: [
+          { id: 'Rainforest', label: 'Tropical Rainforest', icon: <Globe size={15} />, isNew: true },
+          { id: 'Desert', label: 'Desert Ecosystem', icon: <Globe size={15} />, isNew: true },
+          { id: 'Volcano', label: 'Volcanoes', icon: <Zap size={15} />, isNew: true },
+        ]
+      },
+      {
+        subject: 'History',
+        color: 'amber',
+        items: [
+          { id: 'Pyramid', label: 'Ancient Pyramids', icon: <Landmark size={15} /> },
+        ]
+      },
+      {
+        subject: 'Mathematics',
+        color: 'blue',
+        items: [
+          { id: 'Geometry', label: 'Geometry', icon: <Shapes size={15} /> },
+        ]
+      },
+    ]
+  },
+
+  // ── Class 6 ─────────────────────────────────────────────────────────────
+  {
+    className: 'Class 6',
+    emoji: '⚗️',
+    subjects: [
+      {
+        subject: 'Science – Matter',
+        color: 'cyan',
+        items: [
+          { id: 'Atom', label: 'Introduction to Atoms', icon: <Atom size={15} /> },
+          { id: 'CrystalLattice', label: 'States of Matter', icon: <Sparkles size={15} /> },
+        ]
+      },
+      {
+        subject: 'Science – Living World',
+        color: 'emerald',
+        items: [
+          { id: 'Cell', label: 'The Cell', icon: <Dna size={15} />, isNew: true },
+          { id: 'AnimalCell', label: 'Animal Cell', icon: <Dna size={15} />, isNew: true },
+          { id: 'Microscope', label: 'Microscope Lab', icon: <Wrench size={15} /> },
+        ]
+      },
+      {
+        subject: 'Geography',
+        color: 'sky',
+        items: [
+          { id: 'Globe', label: 'Globe & Maps', icon: <Globe size={15} /> },
+          { id: 'Rainforest', label: 'Tropical Rainforest', icon: <Globe size={15} />, isNew: true },
+          { id: 'Desert', label: 'Desert Regions', icon: <Globe size={15} />, isNew: true },
+          { id: 'Tornado', label: 'Weather & Climate', icon: <Zap size={15} />, isNew: true },
+          { id: 'Volcano', label: 'Volcanic Activity', icon: <Zap size={15} />, isNew: true },
+        ]
+      },
+      {
+        subject: 'History',
+        color: 'amber',
+        items: [
+          { id: 'AncientRome', label: 'Ancient Civilisations', icon: <Landmark size={15} /> },
+          { id: 'Pyramid', label: 'Great Pyramid of Giza', icon: <Landmark size={15} /> },
+        ]
+      },
+      {
+        subject: 'Mathematics',
+        color: 'violet',
+        items: [
+          { id: 'Geometry', label: 'Basic Geometry', icon: <Shapes size={15} /> },
+          { id: 'Fractals', label: 'Patterns & Symmetry', icon: <Binary size={15} /> },
+        ]
+      },
+    ]
+  },
+
+  // ── Class 9 ─────────────────────────────────────────────────────────────
   {
     className: 'Class 9',
     emoji: '📗',
@@ -265,6 +488,12 @@ export function Sidebar() {
   // Expanded state: class-level and subject-level
   const [expandedClasses, setExpandedClasses] = useState<Record<string, boolean>>({
     'Dashboard': true,
+    'Class 1': false,
+    'Class 2': false,
+    'Class 3': false,
+    'Class 4': false,
+    'Class 5': false,
+    'Class 6': false,
     'Class 9': false,
     'Class 10': false,
     'Class 11': false,
