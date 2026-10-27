@@ -6061,5 +6061,1047 @@ export const preloadedCourses: Record<string, CourseData> = {
               ]
     }
     ]
+  },
+  Rainforest: {
+    title: "Tropical Rainforest",
+    subtitle: "Earth's Green Lungs",
+    intro: "Tropical rainforests cover only about 6% of the Earth's surface but are home to more than half of the world's plant and animal species. Found near the equator, these lush ecosystems receive heavy rainfall year-round and are vital for regulating our planet's climate, air quality, and biodiversity.",
+    category: "Ecology",
+    difficulty: "Beginner",
+    duration: "20 min",
+    iconName: "Trees",
+    color: "green",
+    sections: [
+      {
+        title: "Layers of the Rainforest",
+        content: "A rainforest is divided into four main layers: the emergent layer (tallest trees reaching 60m), the canopy (a dense roof of leaves), the understory (shrubs and smaller trees in dim light), and the forest floor (dark, damp, and rich in decomposers).",
+        icon: "Layers",
+        color: "text-green-400"
+      },
+      {
+        title: "Biodiversity",
+        content: "Rainforests are the most biodiverse places on Earth. A single hectare can contain over 400 species of trees and thousands of insects. Animals like toucans, jaguars, poison dart frogs, and sloths all share this rich habitat.",
+        icon: "Leaf",
+        color: "text-emerald-400"
+      },
+      {
+        title: "The Water Cycle",
+        content: "Rainforests create their own rain. Trees release water vapour through their leaves (transpiration), which condenses to form clouds and falls back as rain. This cycle keeps the forest moist and helps regulate regional climates.",
+        icon: "Droplets",
+        color: "text-blue-400"
+      },
+      {
+        title: "Threats & Conservation",
+        content: "Deforestation for farming and logging destroys millions of hectares each year. Losing the rainforest means losing species, disrupting the water cycle, and releasing huge amounts of stored carbon into the atmosphere.",
+        icon: "AlertTriangle",
+        color: "text-yellow-400"
+      }
+    ],
+    modules: [
+      {
+        title: "Forest Layers Explorer",
+        desc: "Identify each layer of the tropical rainforest and understand how sunlight, temperature, and moisture change from canopy to floor.",
+        completed: false,
+        objectives: ["Name the four layers of a rainforest", "Describe which animals live in each layer", "Explain how sunlight decreases toward the forest floor"],
+        interactiveLabel: "Explore Layers",
+        interactiveType: "3d-viewer",
+        simulationId: "rainforest-layers",
+        quiz: {
+          question: "Which layer of the rainforest receives the most sunlight?",
+          options: ["Forest Floor", "Understory", "Canopy", "Emergent Layer"],
+          correctAnswer: 3
+        }
+      },
+      {
+        title: "Biodiversity Hotspot",
+        desc: "Discover why rainforests host more species than any other biome and how different plants and animals depend on each other.",
+        completed: false,
+        objectives: ["Define biodiversity", "Give examples of rainforest species", "Explain food chain relationships in the rainforest"],
+        interactiveLabel: "Meet the Species",
+        interactiveType: "interactive-quiz",
+        quiz: {
+          question: "What does the word 'biodiversity' mean?",
+          options: ["The number of rivers in a forest", "The variety of life in a particular habitat", "The total rainfall in a year", "The height of the tallest trees"],
+          correctAnswer: 1
+        }
+      },
+      {
+        title: "Rainforest & Climate",
+        desc: "Learn how rainforests act as the lungs of the Earth by absorbing CO₂ and producing oxygen, and what happens when they are cut down.",
+        completed: false,
+        objectives: ["Explain the role of rainforests in the carbon cycle", "Describe what deforestation means", "Understand why conservation matters"],
+        interactiveLabel: "Carbon Cycle Sim",
+        interactiveType: "simulation",
+        simulationId: "carbon-cycle",
+        quiz: {
+          question: "What process do trees use to absorb carbon dioxide and release oxygen?",
+          options: ["Respiration", "Transpiration", "Photosynthesis", "Decomposition"],
+          correctAnswer: 2
+        }
+      }
+    ],
+    math: {
+      title: "Transpiration Rate",
+      intro: "A single large rainforest tree can release hundreds of litres of water per day through transpiration. The rate depends on the leaf area.",
+      formula: "T = E \\times A",
+      variables: [
+        { symbol: "T", definition: "Total transpiration (litres/day)" },
+        { symbol: "E", definition: "Transpiration rate per unit area (litres/m²/day)" },
+        { symbol: "A", definition: "Total leaf area (m²)" }
+      ]
+    },
+    conclusion: {
+      title: "Our Planet's Greatest Treasure",
+      content: "Tropical rainforests are irreplaceable ecosystems that support millions of species, regulate climate, and sustain human communities. Protecting them is one of the most important things we can do for our planet.",
+      highlight: "50%+",
+      highlightNote: "of all species on Earth live in rainforests"
+    }
+  },
+  Desert: {
+    title: "Desert Ecosystem",
+    subtitle: "Life in the Extreme",
+    intro: "Deserts are the driest places on Earth, receiving less than 250mm of rainfall per year. Covering about one-third of the planet's land surface, deserts are not always hot — they range from the scorching Sahara to the frozen Antarctic desert. Life here has evolved extraordinary adaptations to survive heat, cold, and scarce water.",
+    category: "Ecology",
+    difficulty: "Beginner",
+    duration: "20 min",
+    iconName: "Sun",
+    color: "yellow",
+    sections: [
+      {
+        title: "Types of Deserts",
+        content: "Deserts are classified by temperature: hot deserts (like the Sahara) have extreme daytime heat; cold deserts (like the Gobi) have freezing winters. Both share the defining trait of very little rainfall.",
+        icon: "Thermometer",
+        color: "text-orange-400"
+      },
+      {
+        title: "Desert Plants",
+        content: "Plants like cacti store water in their thick stems. Their leaves have evolved into spines to reduce water loss. After rare rainfall, desert wildflowers can bloom rapidly and complete their entire life cycle in just a few weeks.",
+        icon: "Flower",
+        color: "text-green-400"
+      },
+      {
+        title: "Desert Animals",
+        content: "Animals survive by being nocturnal (active at night), burrowing underground, or having special body features. Camels store energy in their humps (not water). Fennec foxes have large ears to release body heat.",
+        icon: "PawPrint",
+        color: "text-yellow-400"
+      },
+      {
+        title: "Sand Dunes & Landscape",
+        content: "Wind is the main sculptor in a desert. It piles sand into dunes that can move over time. Rock formations like mesas and arches form through erosion by wind and rare but powerful flash floods.",
+        icon: "Wind",
+        color: "text-amber-400"
+      }
+    ],
+    modules: [
+      {
+        title: "Desert Survival Adaptations",
+        desc: "Investigate the incredible strategies that plants and animals use to survive extreme heat and water scarcity in desert environments.",
+        completed: false,
+        objectives: ["Define adaptation", "List three ways animals survive in deserts", "Explain how cacti store water"],
+        interactiveLabel: "Explore Adaptations",
+        interactiveType: "3d-viewer",
+        simulationId: "desert-adaptations",
+        quiz: {
+          question: "What is stored inside a camel's hump?",
+          options: ["Water", "Fat (energy reserves)", "Blood", "Air"],
+          correctAnswer: 1
+        }
+      },
+      {
+        title: "Desert Climate & Geography",
+        desc: "Explore how low humidity, intense solar radiation, and wind shape desert landscapes and create extreme temperature swings between day and night.",
+        completed: false,
+        objectives: ["Explain why deserts have large temperature swings", "Identify major deserts on a map", "Describe how sand dunes form"],
+        interactiveLabel: "Desert Map",
+        interactiveType: "interactive-quiz",
+        quiz: {
+          question: "Which is the largest hot desert in the world?",
+          options: ["Arabian Desert", "Gobi Desert", "Sahara Desert", "Atacama Desert"],
+          correctAnswer: 2
+        }
+      },
+      {
+        title: "The Water Cycle in Arid Regions",
+        desc: "Understand why deserts receive so little rain and how what little water does fall is absorbed, stored, or quickly evaporated.",
+        completed: false,
+        objectives: ["Explain the rain shadow effect", "Describe evaporation in hot climates", "Understand oasis formation"],
+        interactiveLabel: "Water Cycle Sim",
+        interactiveType: "simulation",
+        quiz: {
+          question: "What is the maximum annual rainfall that classifies a region as a desert?",
+          options: ["1000 mm", "500 mm", "250 mm", "50 mm"],
+          correctAnswer: 2
+        }
+      }
+    ],
+    math: {
+      title: "Evapotranspiration Ratio",
+      intro: "In deserts, potential evapotranspiration (PET) — the amount of water that would evaporate if available — far exceeds actual rainfall (P). The aridity index measures how dry a region is.",
+      formula: "AI = P / PET",
+      variables: [
+        { symbol: "AI", definition: "Aridity Index (AI < 0.2 means arid/desert)" },
+        { symbol: "P", definition: "Mean annual precipitation (mm)" },
+        { symbol: "PET", definition: "Potential evapotranspiration (mm)" }
+      ]
+    },
+    conclusion: {
+      title: "Harsh but Alive",
+      content: "Deserts may seem lifeless, but they are teeming with specially adapted organisms. Understanding desert ecosystems helps us appreciate the resilience of life and prepares us to protect these fragile environments as climate change expands arid zones.",
+      highlight: "33%",
+      highlightNote: "of Earth's land surface is desert"
+    }
+  },
+  Tornado: {
+    title: "Tornado",
+    subtitle: "Nature's Most Violent Wind",
+    intro: "A tornado is a rapidly rotating column of air that stretches from a thunderstorm cloud down to the ground. With wind speeds that can exceed 480 km/h, tornadoes are the most violent atmospheric storms on Earth. They form mostly in spring and summer when warm, humid air collides with cold, dry air.",
+    category: "Weather & Climate",
+    difficulty: "Intermediate",
+    duration: "25 min",
+    iconName: "Wind",
+    color: "slate",
+    sections: [
+      {
+        title: "How Tornadoes Form",
+        content: "Tornadoes develop from supercell thunderstorms. Wind at different altitudes blows at different speeds and directions, creating a horizontal spinning effect. Rising warm air tilts this spin vertical, forming a rotating updraft called a mesocyclone, which can tighten into a tornado.",
+        icon: "RefreshCw",
+        color: "text-slate-400"
+      },
+      {
+        title: "The Fujita Scale",
+        content: "Tornadoes are rated on the Enhanced Fujita (EF) scale from EF0 (light damage, ~105–137 km/h) to EF5 (incredible damage, >322 km/h). An EF5 tornado can level well-constructed homes and hurl cars hundreds of metres.",
+        icon: "BarChart2",
+        color: "text-yellow-400"
+      },
+      {
+        title: "Tornado Alley",
+        content: "The central United States — known as 'Tornado Alley' — experiences the world's highest frequency of tornadoes because warm Gulf air meets cold Canadian air over flat terrain. States like Texas, Oklahoma, and Kansas see dozens each year.",
+        icon: "MapPin",
+        color: "text-red-400"
+      },
+      {
+        title: "Safety & Detection",
+        content: "Doppler radar can detect the rotating winds of a mesocyclone before a tornado touches down, giving communities minutes of warning. During a tornado, the safest place is an underground shelter or an interior room on the lowest floor away from windows.",
+        icon: "ShieldCheck",
+        color: "text-blue-400"
+      }
+    ],
+    modules: [
+      {
+        title: "Tornado Formation",
+        desc: "Trace the step-by-step process by which a supercell thunderstorm spawns a rotating mesocyclone and ultimately a tornado.",
+        completed: false,
+        objectives: ["Describe the role of wind shear in tornado formation", "Explain what a mesocyclone is", "Identify the conditions needed for a supercell"],
+        interactiveLabel: "Tornado Sim",
+        interactiveType: "simulation",
+        simulationId: "tornado-formation",
+        quiz: {
+          question: "What atmospheric phenomenon is most directly responsible for tornado formation?",
+          options: ["A cold front meeting a warm ocean current", "Wind shear creating a rotating updraft in a thunderstorm", "High pressure systems over flat land", "Lightning ionising the lower atmosphere"],
+          correctAnswer: 1
+        }
+      },
+      {
+        title: "Measuring Tornado Intensity",
+        desc: "Learn how meteorologists classify tornado strength using the Enhanced Fujita scale and what damage each level causes.",
+        completed: false,
+        objectives: ["List the EF scale categories", "Match EF ratings to expected wind speeds", "Describe the damage caused by an EF3 tornado"],
+        interactiveLabel: "EF Scale Explorer",
+        interactiveType: "interactive-quiz",
+        quiz: {
+          question: "Which EF scale rating represents the most powerful tornadoes with winds over 322 km/h?",
+          options: ["EF2", "EF3", "EF4", "EF5"],
+          correctAnswer: 3
+        }
+      },
+      {
+        title: "Tornado Safety Preparedness",
+        desc: "Develop a tornado safety plan and understand how early warning systems save lives.",
+        completed: false,
+        objectives: ["Identify safe shelter locations during a tornado", "Explain how Doppler radar detects tornadoes", "Create a basic emergency plan"],
+        interactiveLabel: "Safety Planner",
+        interactiveType: "interactive-quiz",
+        quiz: {
+          question: "During a tornado warning, where is the safest place to be inside a building?",
+          options: ["Top floor near a window to observe", "Basement or interior room on lowest floor", "Garage with the door open", "Near an exterior wall"],
+          correctAnswer: 1
+        }
+      }
+    ],
+    math: {
+      title: "Rotational Wind Speed",
+      intro: "The speed of wind rotating around a tornado's core follows principles of angular momentum. As the funnel narrows, wind speed increases dramatically.",
+      formula: "v = \\frac{\\Gamma}{2\\pi r}",
+      variables: [
+        { symbol: "v", definition: "Tangential wind speed (m/s)" },
+        { symbol: "\\Gamma", definition: "Circulation (m²/s) — constant as radius changes" },
+        { symbol: "r", definition: "Radius from the tornado centre (m)" }
+      ]
+    },
+    conclusion: {
+      title: "Respecting Nature's Power",
+      content: "Tornadoes are among the most awe-inspiring and dangerous phenomena in nature. With modern radar technology and effective warning systems, more lives are saved every year. Understanding tornado science empowers communities to prepare and respond wisely.",
+      highlight: "EF5",
+      highlightNote: "winds can exceed 322 km/h"
+    }
+  },
+  Volcano: {
+    title: "Volcano",
+    subtitle: "Fire Mountains of the Earth",
+    intro: "A volcano is an opening in the Earth's crust through which molten rock (magma), ash, and gases escape from deep within the planet. Volcanic eruptions have shaped Earth's landscapes, created new islands, and even influenced climate throughout history. There are about 1,500 potentially active volcanoes on Earth today.",
+    category: "Earth Science",
+    difficulty: "Intermediate",
+    duration: "25 min",
+    iconName: "Mountain",
+    color: "orange",
+    sections: [
+      {
+        title: "Inside a Volcano",
+        content: "Beneath a volcano lies a magma chamber — a reservoir of molten rock under extreme pressure. When pressure builds enough, magma rises through a conduit and erupts from the vent at the summit or side vents. Once it exits, magma is called lava.",
+        icon: "Flame",
+        color: "text-orange-400"
+      },
+      {
+        title: "Types of Volcanoes",
+        content: "Shield volcanoes (like those in Hawaii) have gentle slopes and produce fluid, slow-moving lava. Stratovolcanoes (like Mt. Fuji) are steep and explosive. Cinder cone volcanoes are smaller and form from erupted rock fragments.",
+        icon: "Triangle",
+        color: "text-red-400"
+      },
+      {
+        title: "Tectonic Plate Connections",
+        content: "Most volcanoes occur along tectonic plate boundaries. At divergent boundaries, plates pull apart and magma fills the gap. At convergent boundaries, one plate sinks beneath another (subduction), melting to form magma that powers explosive volcanoes.",
+        icon: "Globe",
+        color: "text-blue-400"
+      },
+      {
+        title: "Volcanic Hazards & Benefits",
+        content: "Eruptions can cause lava flows, pyroclastic flows (superheated gas and ash clouds), lahars (volcanic mudflows), and tsunamis. However, volcanic ash creates extremely fertile soil, and geothermal energy from volcanic regions provides clean electricity.",
+        icon: "AlertTriangle",
+        color: "text-yellow-400"
+      }
+    ],
+    modules: [
+      {
+        title: "Anatomy of a Volcanic Eruption",
+        desc: "Explore the internal structure of a volcano and the stages that lead from magma chamber pressurisation to a full eruption.",
+        completed: false,
+        objectives: ["Label the key parts of a volcano", "Explain the difference between magma and lava", "Describe how gas pressure triggers eruptions"],
+        interactiveLabel: "Volcano Explorer",
+        interactiveType: "3d-viewer",
+        simulationId: "volcano-anatomy",
+        quiz: {
+          question: "What is magma called once it flows out onto the Earth's surface?",
+          options: ["Pyroclast", "Lava", "Basalt", "Tephra"],
+          correctAnswer: 1
+        }
+      },
+      {
+        title: "Types & Tectonic Setting",
+        desc: "Compare shield volcanoes, stratovolcanoes, and cinder cones, and discover how tectonic plate boundaries control where volcanoes form.",
+        completed: false,
+        objectives: ["Distinguish between shield and stratovolcanoes", "Locate the Pacific Ring of Fire on a map", "Connect volcanic activity to plate boundaries"],
+        interactiveLabel: "Plate Boundary Map",
+        interactiveType: "interactive-quiz",
+        quiz: {
+          question: "The 'Ring of Fire' refers to which geological feature?",
+          options: ["A chain of active volcanoes and earthquake zones around the Pacific Ocean", "A series of fire-coloured rock formations in the Sahara", "The orbit path of a near-Earth asteroid", "Hot springs found along the equator"],
+          correctAnswer: 0
+        }
+      },
+      {
+        title: "Volcanic Hazards & Human Impact",
+        desc: "Evaluate the destructive and constructive effects of volcanic eruptions on landscapes, climate, and human civilisations.",
+        completed: false,
+        objectives: ["Describe three hazards of volcanic eruptions", "Explain how volcanic ash affects climate", "Give an example of volcanic benefits to agriculture"],
+        interactiveLabel: "Hazard Assessment",
+        interactiveType: "simulation",
+        quiz: {
+          question: "What is a pyroclastic flow?",
+          options: ["A slow river of cooling lava", "A cloud of superheated gas, ash, and rock racing down a volcano", "A type of underwater volcanic eruption", "Lava that has cooled into solid black rock"],
+          correctAnswer: 1
+        }
+      }
+    ],
+    math: {
+      title: "Lava Flow Rate",
+      intro: "The volume flow rate of lava from a volcanic vent determines how fast a lava field spreads. It is calculated from the cross-sectional area of the flow and its velocity.",
+      formula: "Q = A \\times v",
+      variables: [
+        { symbol: "Q", definition: "Volume flow rate (m³/s)" },
+        { symbol: "A", definition: "Cross-sectional area of the lava channel (m²)" },
+        { symbol: "v", definition: "Average lava velocity (m/s)" }
+      ]
+    },
+    conclusion: {
+      title: "Builders and Destroyers",
+      content: "Volcanoes remind us of the dynamic, living nature of our planet. While they pose serious risks to nearby populations, they also build new land, enrich soils, and provide renewable energy — a powerful symbol of Earth's creative and destructive forces in balance.",
+      highlight: "1,500",
+      highlightNote: "potentially active volcanoes on Earth"
+    }
+  },
+  NuclearReactor: {
+    title: "Nuclear Reactor",
+    subtitle: "Harnessing Nuclear Fission for Power",
+    intro: "A nuclear reactor is a device that initiates and controls a self-sustained nuclear chain reaction to generate thermal energy, which is then converted into electricity. Utilising the fission of heavy nuclei such as Uranium-235 or Plutonium-239, reactors produce enormous amounts of energy with zero direct carbon emissions, making them a critical component of low-carbon energy strategies.",
+    category: "Nuclear Physics",
+    difficulty: "Advanced",
+    duration: "45 min",
+    iconName: "Zap",
+    color: "yellow",
+    sections: [
+      {
+        title: "Nuclear Fission Chain Reaction",
+        content: "When a thermal (slow) neutron is absorbed by a U-235 nucleus, the nucleus undergoes fission — splitting into two daughter nuclides, releasing 2–3 fast neutrons and approximately 200 MeV of energy. A moderator (heavy water or graphite) slows these fast neutrons so they can sustain subsequent fissions. Control rods (Boron or Cadmium) absorb excess neutrons to regulate the multiplication factor k.",
+        icon: "Atom",
+        color: "text-yellow-400"
+      },
+      {
+        title: "Reactor Components",
+        content: "A Pressurised Water Reactor (PWR) comprises a reactor core (fuel assemblies of enriched UO₂ pellets), a primary coolant loop (pressurised water at ~155 bar, 325°C), a steam generator (secondary loop drives turbines), and multiple passive and active safety systems including ECCS and containment structures designed to withstand Loss-of-Coolant Accidents (LOCA).",
+        icon: "Settings",
+        color: "text-blue-400"
+      },
+      {
+        title: "Neutron Moderation & Criticality",
+        content: "Criticality is achieved when the effective neutron multiplication factor keff = 1, meaning exactly one neutron from each fission causes another. keff < 1 is subcritical (reaction dies); keff > 1 is supercritical (power rises). The six-factor formula governs neutron lifecycle through resonance escape, thermal utilisation, and fast fission factors.",
+        icon: "BarChart2",
+        color: "text-green-400"
+      },
+      {
+        title: "Radiation Safety & Waste Management",
+        content: "Ionising radiation (alpha, beta, gamma, neutrons) is quantified in Sieverts (Sv) for biological dose. Reactor shielding uses high-density concrete and water. Spent nuclear fuel contains long-lived transuranic actinides and fission products, requiring geological deep repository storage for thousands of years. Dose limits for radiation workers are set at 20 mSv/year.",
+        icon: "ShieldCheck",
+        color: "text-red-400"
+      }
+    ],
+    modules: [
+      {
+        title: "Fission Physics & Energy Release",
+        desc: "Derive the energy released per fission event using mass-energy equivalence and understand how the chain reaction sustains power output in a reactor core.",
+        completed: false,
+        objectives: ["Apply E=mc² to calculate fission energy", "Distinguish prompt and delayed neutrons", "Explain the role of delayed neutrons in reactor control"],
+        interactiveLabel: "Fission Simulator",
+        interactiveType: "simulation",
+        simulationId: "nuclear-fission",
+        quiz: {
+          question: "Which quantity must equal exactly 1 for a nuclear reactor to operate at steady-state (critical) power?",
+          options: ["Thermal efficiency η", "Effective neutron multiplication factor keff", "Neutron flux Φ", "Enrichment percentage"],
+          correctAnswer: 1
+        }
+      },
+      {
+        title: "Reactor Design & Thermodynamics",
+        desc: "Analyse the thermodynamic cycle of a PWR, calculate thermal efficiency using the Rankine cycle, and evaluate the function of each reactor sub-system.",
+        completed: false,
+        objectives: ["Describe the PWR primary and secondary loop", "Calculate Rankine cycle efficiency", "Explain the role of the pressuriser"],
+        interactiveLabel: "PWR Schematic",
+        interactiveType: "3d-viewer",
+        simulationId: "reactor-design",
+        quiz: {
+          question: "What is the primary function of the moderator in a thermal reactor?",
+          options: ["To absorb excess neutrons and reduce reactor power", "To slow fast neutrons to thermal energies to sustain fission in U-235", "To cool the reactor core during shutdown", "To enrich natural uranium to reactor-grade fuel"],
+          correctAnswer: 1
+        }
+      },
+      {
+        title: "Safety Systems & Nuclear Waste",
+        desc: "Evaluate passive and active safety mechanisms, assess accident scenarios (Three Mile Island, Chernobyl, Fukushima), and examine strategies for long-term radioactive waste disposal.",
+        completed: false,
+        objectives: ["Describe SCRAM procedure and ECCS", "Compare Generation II and Generation IV reactor safety features", "Evaluate arguments for and against nuclear energy as a climate solution"],
+        interactiveLabel: "Safety Case Study",
+        interactiveType: "interactive-quiz",
+        quiz: {
+          question: "What is the SI unit used to measure the biological effect of ionising radiation on the human body?",
+          options: ["Becquerel (Bq)", "Gray (Gy)", "Sievert (Sv)", "Curie (Ci)"],
+          correctAnswer: 2
+        }
+      }
+    ],
+    math: {
+      title: "Mass-Energy Equivalence in Fission",
+      intro: "The energy released in a fission reaction is derived from the mass defect — the difference between the total rest mass of the reactants and the products — converted via Einstein's relation.",
+      formula: "E = \\Delta m \\cdot c^2",
+      variables: [
+        { symbol: "E", definition: "Energy released per fission event (Joules or MeV)" },
+        { symbol: "\\Delta m", definition: "Mass defect (kg) — mass converted to energy" },
+        { symbol: "c", definition: "Speed of light in vacuum (3 × 10⁸ m/s)" }
+      ]
+    },
+    conclusion: {
+      title: "The Controlled Power of the Atom",
+      content: "Nuclear fission reactors represent one of humanity's greatest engineering achievements — extracting vast energy from vanishingly small amounts of matter. As Generation IV designs and fusion research advance, nuclear technology continues to evolve as a central pillar of the global clean-energy transition.",
+      highlight: "200 MeV",
+      highlightNote: "energy released per single U-235 fission event"
+    }
+  },
+  Relativity: {
+    title: "Theory of Relativity",
+    subtitle: "Space, Time, and the Fabric of the Universe",
+    intro: "Einstein's Theory of Relativity, comprising Special Relativity (1905) and General Relativity (1915), fundamentally restructured our understanding of space, time, mass, and gravity. Special Relativity demonstrated that the laws of physics are identical in all inertial frames and that the speed of light is invariant, leading to revolutionary consequences including time dilation, length contraction, and mass-energy equivalence. General Relativity extended these principles to accelerating frames and described gravity as the curvature of spacetime caused by mass and energy.",
+    category: "Physics",
+    difficulty: "Advanced",
+    duration: "50 min",
+    iconName: "Globe",
+    color: "purple",
+    sections: [
+      {
+        title: "Postulates of Special Relativity",
+        content: "Special Relativity rests on two postulates: (1) The laws of physics are the same in all inertial (non-accelerating) reference frames. (2) The speed of light in a vacuum (c = 2.998 × 10⁸ m/s) is the same for all observers, regardless of the motion of the source or observer. These postulates lead directly to the Lorentz transformations and the relativity of simultaneity.",
+        icon: "Zap",
+        color: "text-purple-400"
+      },
+      {
+        title: "Time Dilation & Length Contraction",
+        content: "A clock moving relative to an observer ticks more slowly (time dilation): Δt' = γΔt₀. An object moving relative to an observer appears shorter along the direction of motion (length contraction): L = L₀/γ. The Lorentz factor γ = 1/√(1−v²/c²) approaches infinity as v → c, making it impossible for a massive object to reach the speed of light.",
+        icon: "Clock",
+        color: "text-blue-400"
+      },
+      {
+        title: "General Relativity & Spacetime Curvature",
+        content: "General Relativity replaces Newtonian gravity with the concept that massive objects warp the four-dimensional spacetime fabric. Objects follow geodesics (the straightest possible paths) through curved spacetime. This predicts gravitational lensing (light bending around massive objects), gravitational waves (ripples in spacetime detected by LIGO in 2015), and gravitational redshift.",
+        icon: "GitBranch",
+        color: "text-indigo-400"
+      },
+      {
+        title: "Mass-Energy Equivalence & Applications",
+        content: "E = mc² shows that mass and energy are interchangeable. This relation explains nuclear binding energy, the energy release in fission and fusion reactions, and why antimatter annihilation produces pure energy. GPS satellites must apply relativistic corrections — both Special Relativity (satellite clocks tick slower due to speed) and General Relativity (clocks tick faster in weaker gravity) — to maintain metre-level accuracy.",
+        icon: "Atom",
+        color: "text-yellow-400"
+      }
+    ],
+    modules: [
+      {
+        title: "Special Relativity & Lorentz Transformations",
+        desc: "Derive the consequences of the two postulates of Special Relativity, apply Lorentz transformations to relate measurements in different inertial frames, and solve problems involving time dilation and length contraction.",
+        completed: false,
+        objectives: ["State and apply the two postulates of SR", "Calculate time dilation using the Lorentz factor", "Solve twin paradox and light clock thought experiments"],
+        interactiveLabel: "Lorentz Transform Sim",
+        interactiveType: "simulation",
+        simulationId: "special-relativity",
+        quiz: {
+          question: "A spacecraft travels at 0.8c relative to Earth. An astronaut on board measures a journey taking 3 years. How long does the journey take as measured from Earth? (γ at 0.8c ≈ 1.67)",
+          options: ["3 years", "1.8 years", "5 years", "3.75 years"],
+          correctAnswer: 2
+        }
+      },
+      {
+        title: "General Relativity & Curved Spacetime",
+        desc: "Understand the equivalence principle, interpret the Einstein field equations qualitatively, and analyse predictions of General Relativity including gravitational waves and black holes.",
+        completed: false,
+        objectives: ["State the equivalence principle", "Explain spacetime curvature and geodesics", "Describe experimental evidence for GR"],
+        interactiveLabel: "Spacetime Curvature",
+        interactiveType: "3d-viewer",
+        simulationId: "general-relativity",
+        quiz: {
+          question: "Which experiment first directly confirmed the existence of gravitational waves, as predicted by General Relativity?",
+          options: ["Michelson-Morley Experiment (1887)", "Hubble Space Telescope observations (1990)", "LIGO detection of merging black holes (2015)", "Eddington's solar eclipse measurement (1919)"],
+          correctAnswer: 2
+        }
+      },
+      {
+        title: "Relativistic Energy & Momentum",
+        desc: "Extend classical mechanics into the relativistic regime, derive the energy-momentum relation, and apply E=mc² to nuclear and particle physics contexts.",
+        completed: false,
+        objectives: ["Derive relativistic kinetic energy", "Apply the energy-momentum invariant", "Connect E=mc² to nuclear binding energy"],
+        interactiveLabel: "Energy Calculator",
+        interactiveType: "interactive-quiz",
+        quiz: {
+          question: "What does the equation E = mc² fundamentally state?",
+          options: ["Energy and momentum are always conserved in collisions", "The speed of light depends on the observer's frame", "Mass and energy are equivalent and interconvertible", "Gravity curves the path of electromagnetic waves"],
+          correctAnswer: 2
+        }
+      }
+    ],
+    math: {
+      title: "The Lorentz Factor",
+      intro: "The Lorentz factor γ quantifies the degree of time dilation and length contraction experienced at velocity v. It is the cornerstone of all Special Relativistic calculations.",
+      formula: "\\gamma = \\frac{1}{\\sqrt{1 - \\frac{v^2}{c^2}}}",
+      variables: [
+        { symbol: "\\gamma", definition: "Lorentz factor (dimensionless; γ ≥ 1)" },
+        { symbol: "v", definition: "Relative velocity of the moving frame (m/s)" },
+        { symbol: "c", definition: "Speed of light in vacuum (2.998 × 10⁸ m/s)" }
+      ]
+    },
+    conclusion: {
+      title: "A Revolution in Human Thought",
+      content: "Relativity shattered centuries of Newtonian absolutes, revealing that space and time are interwoven, dynamic, and observer-dependent. Its predictions — tested to extraordinary precision in GPS systems, particle accelerators, and gravitational wave detectors — have proven spectacularly correct, forming a cornerstone of modern physics.",
+      highlight: "E = mc²",
+      highlightNote: "the most famous equation in science"
+    }
+  },
+  NeuralNetwork: {
+    title: "Neural Network",
+    subtitle: "Foundations of Deep Learning",
+    intro: "An Artificial Neural Network (ANN) is a computational model loosely inspired by the biological neural networks of the brain. Comprising layers of interconnected nodes (neurons) that apply learnable weighted transformations and nonlinear activation functions, ANNs learn to map inputs to outputs by minimising a loss function via gradient descent and backpropagation. Deep Neural Networks (DNNs) with many hidden layers underpin modern breakthroughs in computer vision, natural language processing, and scientific discovery.",
+    category: "Artificial Intelligence",
+    difficulty: "Advanced",
+    duration: "50 min",
+    iconName: "BrainCircuit",
+    color: "violet",
+    sections: [
+      {
+        title: "The Artificial Neuron (Perceptron)",
+        content: "Each neuron computes a weighted sum of its inputs plus a bias term: z = Σ(wᵢxᵢ) + b, then applies a nonlinear activation function (ReLU, sigmoid, tanh, softmax) to produce its output: a = f(z). The weights w and bias b are the learnable parameters adjusted during training. A single-layer perceptron can only classify linearly separable data, motivating multi-layer architectures.",
+        icon: "BrainCircuit",
+        color: "text-violet-400"
+      },
+      {
+        title: "Forward Propagation & Loss Functions",
+        content: "In forward propagation, input data flows layer-by-layer through the network, with each layer applying a learned affine transformation followed by an activation, producing a final prediction ŷ. The loss function L(y, ŷ) quantifies prediction error: Mean Squared Error (MSE) for regression, Cross-Entropy for classification. The objective of training is to minimise L over the training dataset.",
+        icon: "ArrowRight",
+        color: "text-blue-400"
+      },
+      {
+        title: "Backpropagation & Gradient Descent",
+        content: "Backpropagation applies the chain rule of calculus to compute ∂L/∂w for every weight in the network by propagating error gradients from the output layer back through each layer. Stochastic Gradient Descent (SGD) and adaptive optimisers (Adam, RMSProp) then update weights: w ← w − η·∂L/∂w, where η is the learning rate. Batch normalisation and dropout regularise training to prevent overfitting.",
+        icon: "RefreshCw",
+        color: "text-green-400"
+      },
+      {
+        title: "Architectures: CNN, RNN, Transformer",
+        content: "Convolutional Neural Networks (CNNs) use shared convolutional kernels to exploit spatial locality in images. Recurrent Neural Networks (RNNs/LSTMs) model sequential data by maintaining hidden state. Transformers use self-attention mechanisms to capture long-range dependencies in text and are the foundation of large language models (GPT, BERT). Each architecture encodes inductive biases suited to its data domain.",
+        icon: "Network",
+        color: "text-indigo-400"
+      }
+    ],
+    modules: [
+      {
+        title: "Perceptrons & Multi-Layer Architecture",
+        desc: "Build intuition for the perceptron model, understand the expressive power of multi-layer networks via the Universal Approximation Theorem, and implement a simple feedforward network.",
+        completed: false,
+        objectives: ["Implement forward pass of a two-layer network", "Explain why nonlinear activations are essential", "State the Universal Approximation Theorem"],
+        interactiveLabel: "Network Builder",
+        interactiveType: "simulation",
+        simulationId: "neural-network-builder",
+        quiz: {
+          question: "Why are nonlinear activation functions (e.g. ReLU) essential in a deep neural network?",
+          options: ["They prevent the weights from becoming too large", "They allow the network to model complex, nonlinear input-output mappings", "They speed up matrix multiplication on GPU hardware", "They ensure the network output sums to 1"],
+          correctAnswer: 1
+        }
+      },
+      {
+        title: "Training: Loss, Backprop & Optimisers",
+        desc: "Derive the backpropagation algorithm from the chain rule, implement gradient descent, and compare optimisers including SGD, Momentum, and Adam.",
+        completed: false,
+        objectives: ["Derive gradients for a single hidden layer using chain rule", "Explain vanishing and exploding gradient problems", "Compare SGD and Adam optimiser convergence"],
+        interactiveLabel: "Gradient Descent Sim",
+        interactiveType: "simulation",
+        simulationId: "backpropagation",
+        quiz: {
+          question: "What is the primary purpose of backpropagation in neural network training?",
+          options: ["To generate predictions from a trained model", "To efficiently compute gradients of the loss w.r.t. all weights using the chain rule", "To normalise input data before feeding it to the network", "To select the optimal network architecture automatically"],
+          correctAnswer: 1
+        }
+      },
+      {
+        title: "Deep Learning Architectures & Applications",
+        desc: "Survey CNNs, RNNs, and Transformers, analyse their architectural innovations, and evaluate real-world applications from image recognition to large language models.",
+        completed: false,
+        objectives: ["Describe the convolution operation and its advantage for image data", "Explain the attention mechanism in Transformers", "Critically assess ethical considerations of large AI models"],
+        interactiveLabel: "Architecture Explorer",
+        interactiveType: "interactive-quiz",
+        quiz: {
+          question: "Which neural network architecture uses the 'self-attention' mechanism and is the basis for large language models like GPT?",
+          options: ["Convolutional Neural Network (CNN)", "Recurrent Neural Network (RNN)", "Transformer", "Restricted Boltzmann Machine (RBM)"],
+          correctAnswer: 2
+        }
+      }
+    ],
+    math: {
+      title: "Gradient Descent Weight Update",
+      intro: "During each training step, every weight in the network is updated by a small step in the direction that reduces the loss, scaled by the learning rate η.",
+      formula: "w_{t+1} = w_t - \\eta \\cdot \\frac{\\partial L}{\\partial w_t}",
+      variables: [
+        { symbol: "w_t", definition: "Weight value at training step t" },
+        { symbol: "\\eta", definition: "Learning rate (hyperparameter; e.g. 0.001)" },
+        { symbol: "\\frac{\\partial L}{\\partial w_t}", definition: "Gradient of the loss function with respect to the weight" }
+      ]
+    },
+    conclusion: {
+      title: "The Engine of the AI Revolution",
+      content: "Neural networks have transformed computing by enabling machines to learn from data rather than explicit programming. From diagnosing cancer in medical images to translating languages and generating code, deep learning is reshaping every field of human endeavour. Mastery of these foundations is essential for the next generation of AI engineers and researchers.",
+      highlight: "∞",
+      highlightNote: "Universal Approximation — any continuous function can be approximated by a deep network"
+    }
+  },
+  Virus: {
+    title: "Coronavirus (SARS-CoV-2)",
+    subtitle: "Molecular Biology of a Pandemic Pathogen",
+    intro: "SARS-CoV-2 is a positive-sense, single-stranded RNA betacoronavirus responsible for the COVID-19 pandemic. Its ~30 kb genome encodes structural proteins — Spike (S), Envelope (E), Membrane (M), and Nucleocapsid (N) — and non-structural proteins (nsps) including RNA-dependent RNA polymerase (RdRp). The trimeric Spike glycoprotein mediates host cell entry by binding to the ACE2 receptor, and is the primary target of neutralising antibodies and mRNA vaccines.",
+    category: "Virology & Molecular Biology",
+    difficulty: "Advanced",
+    duration: "45 min",
+    iconName: "Microscope",
+    color: "red",
+    sections: [
+      {
+        title: "Viral Structure & Genome",
+        content: "SARS-CoV-2 is an enveloped virus ~100 nm in diameter. Its lipid bilayer envelope is studded with homotrimeric Spike proteins (giving the corona appearance), M proteins (most abundant), and E proteins. Inside, the +ssRNA genome (~29.9 kb) is encapsidated by N proteins in a helical ribonucleocapsid. The 5' cap and 3' poly-A tail allow the genome to serve directly as mRNA upon cell entry.",
+        icon: "Circle",
+        color: "text-red-400"
+      },
+      {
+        title: "Host Cell Entry & Replication Cycle",
+        content: "Entry requires proteolytic priming of the S protein by TMPRSS2 (surface serine protease) or cathepsins (endosomal). The S1 subunit's receptor-binding domain (RBD) binds ACE2 with high affinity (Kd ~15 nM); S2 mediates membrane fusion. After fusion, the genome is translated by host ribosomes producing a polyprotein cleaved by viral proteases (Mpro/3CLpro, PLpro) into 16 nsps. RdRp (nsp12) replicates the genome; structural proteins are assembled in the ER-Golgi and budded out.",
+        icon: "RefreshCw",
+        color: "text-orange-400"
+      },
+      {
+        title: "Immune Response & Variants",
+        content: "The innate immune response (interferons, NK cells) and adaptive immune response (virus-specific CD4+/CD8+ T cells, B cells producing neutralising antibodies against the RBD) clear infection. Variants of Concern (Alpha, Delta, Omicron) carry mutations in the RBD (e.g. N501Y, E484K, K417N) that enhance ACE2 affinity or reduce antibody neutralisation. Omicron's >30 Spike mutations significantly increased immune escape.",
+        icon: "ShieldCheck",
+        color: "text-blue-400"
+      },
+      {
+        title: "mRNA Vaccines & Antivirals",
+        content: "BNT162b2 (Pfizer-BioNTech) and mRNA-1273 (Moderna) encapsulate modified mRNA encoding a stabilised prefusion Spike in lipid nanoparticles (LNPs). Translated Spike protein elicits potent humoral and cellular immunity. Antivirals target viral enzymes: Paxlovid (nirmatrelvir) inhibits Mpro; Remdesivir is an RdRp inhibitor (NTP analogue causing chain termination).",
+        icon: "Syringe",
+        color: "text-green-400"
+      }
+    ],
+    modules: [
+      {
+        title: "Molecular Architecture of SARS-CoV-2",
+        desc: "Analyse the virion structure, genome organisation, and the function of each structural and nonstructural protein in the viral life cycle.",
+        completed: false,
+        objectives: ["Describe the four structural proteins and their roles", "Explain why +ssRNA can be directly translated", "Identify key nonstructural proteins and their enzymatic functions"],
+        interactiveLabel: "Virion Explorer",
+        interactiveType: "3d-viewer",
+        simulationId: "virus-structure",
+        quiz: {
+          question: "Which SARS-CoV-2 protein directly binds to the human ACE2 receptor to initiate cell entry?",
+          options: ["Membrane (M) protein", "Envelope (E) protein", "Nucleocapsid (N) protein", "Spike (S) protein receptor-binding domain (RBD)"],
+          correctAnswer: 3
+        }
+      },
+      {
+        title: "Replication Cycle & Antiviral Targets",
+        desc: "Trace the complete intracellular replication cycle of SARS-CoV-2 from receptor binding to progeny virion release, and map the molecular targets of approved antiviral drugs.",
+        completed: false,
+        objectives: ["Sequence the steps of the SARS-CoV-2 replication cycle", "Explain the mechanism of Mpro inhibition by nirmatrelvir", "Describe how RdRp inhibitors cause chain termination"],
+        interactiveLabel: "Replication Sim",
+        interactiveType: "simulation",
+        simulationId: "virus-replication",
+        quiz: {
+          question: "What is the primary molecular target of the antiviral drug nirmatrelvir (Paxlovid)?",
+          options: ["ACE2 receptor on host cells", "RNA-dependent RNA polymerase (RdRp)", "Main protease (Mpro/3CLpro)", "Spike protein S2 fusion domain"],
+          correctAnswer: 2
+        }
+      },
+      {
+        title: "Vaccines, Immunity & Variant Evolution",
+        desc: "Evaluate the mechanism of mRNA vaccine-induced immunity, analyse how variant mutations alter Spike antigenicity, and assess the evolutionary pressures driving SARS-CoV-2 diversification.",
+        completed: false,
+        objectives: ["Explain how lipid nanoparticle mRNA vaccines work", "Interpret the immune escape significance of Omicron RBD mutations", "Apply Darwinian selection to viral variant emergence"],
+        interactiveLabel: "Variant Tracker",
+        interactiveType: "interactive-quiz",
+        quiz: {
+          question: "How do mRNA COVID-19 vaccines (e.g. BNT162b2) induce protective immunity?",
+          options: ["They inject a weakened live virus that replicates slowly", "They deliver mRNA encoding the Spike protein, which host cells translate to elicit an immune response", "They provide pre-formed antibodies that neutralise the virus directly", "They contain inactivated whole virus particles adjuvanted with aluminium salts"],
+          correctAnswer: 1
+        }
+      }
+    ],
+    math: {
+      title: "Basic Reproduction Number R₀",
+      intro: "R₀ (R-naught) quantifies the average number of secondary infections caused by one infected individual in a fully susceptible population. It determines whether an epidemic grows or declines.",
+      formula: "R_0 = \\beta \\times \\tau \\times c",
+      variables: [
+        { symbol: "\\beta", definition: "Probability of transmission per contact" },
+        { symbol: "\\tau", definition: "Duration of infectiousness (days)" },
+        { symbol: "c", definition: "Average contact rate (contacts/day)" }
+      ]
+    },
+    conclusion: {
+      title: "From Pandemic to Scientific Frontier",
+      content: "SARS-CoV-2 catalysed an unprecedented acceleration in molecular biology — the fastest vaccine development in history, real-time genomic surveillance of variant evolution, and transformative advances in mRNA therapeutics. Understanding its molecular mechanisms is essential training for the virologists, immunologists, and public health scientists of tomorrow.",
+      highlight: "11 months",
+      highlightNote: "from genome sequencing to first approved mRNA vaccine (Jan 2020 → Dec 2020)"
+    }
+  },
+  JetEngine: {
+    title: "Jet Engine",
+    subtitle: "Thermodynamic Powerplant of Modern Aviation",
+    intro: "A jet engine is an air-breathing gas turbine that generates thrust by accelerating a working fluid (air and combustion gases) rearward. Governed by Newton's Third Law and the Brayton thermodynamic cycle, modern high-bypass turbofan engines power commercial airliners with thermal efficiencies exceeding 50% and bypass ratios up to 12:1, combining exceptional fuel economy with low noise. Turbojets, turbofans, turboprops, and turboshafts are all variants of the core gas turbine architecture.",
+    category: "Aerospace Engineering",
+    difficulty: "Advanced",
+    duration: "45 min",
+    iconName: "Wind",
+    color: "blue",
+    sections: [
+      {
+        title: "The Brayton Cycle",
+        content: "Jet engines operate on the Brayton (gas turbine) cycle: (1) Isentropic compression by the compressor, (2) Isobaric heat addition in the combustion chamber (fuel burns at constant pressure), (3) Isentropic expansion through turbine stages (driving the compressor and fan), (4) Isobaric heat rejection as hot exhaust exits the nozzle. The ideal thermal efficiency is ηth = 1 − 1/r^((γ−1)/γ), where r is the pressure ratio and γ is the specific heat ratio.",
+        icon: "RefreshCw",
+        color: "text-blue-400"
+      },
+      {
+        title: "Turbofan Architecture",
+        content: "A high-bypass turbofan has three main sections: (1) Fan & Low-Pressure Compressor (LPC) — a large fan accelerates bypass air around the core; (2) High-Pressure Compressor (HPC) — multiple axial stages compress core air to ~40:1 overall pressure ratio; (3) Combustion Chamber (annular type) — JET-A fuel burns at ~1700–2000 K; (4) High-Pressure Turbine (HPT) extracts work to drive the HPC; (5) Low-Pressure Turbine (LPT) drives the fan and LPC.",
+        icon: "Settings",
+        color: "text-slate-400"
+      },
+      {
+        title: "Thrust Generation & Turbine Cooling",
+        content: "Thrust F = ṁ(Vexit − Vinlet) + (Pexit − Pamb)Aexit. The net thrust depends on the change in momentum of air and exhaust. Turbine inlet temperatures (TIT) exceeding 1700 K require sophisticated cooling: film cooling, transpiration cooling, and single-crystal nickel superalloy blades with thermal barrier coatings (TBCs) allow operation above the blade material's melting point.",
+        icon: "Flame",
+        color: "text-orange-400"
+      },
+      {
+        title: "Compressor & Turbine Aerodynamics",
+        content: "Compressor blades are aerofoils that accelerate and then diffuse airflow to raise static pressure. Surge and stall are instabilities that occur when blade incidence angles are too high — avoided via variable stator vanes and bleed valves. Turbine blades operate in transonic/supersonic relative flow, extracting energy efficiently through carefully designed blade profiles with controlled trailing edge shocks.",
+        icon: "Activity",
+        color: "text-cyan-400"
+      }
+    ],
+    modules: [
+      {
+        title: "Brayton Cycle Thermodynamics",
+        desc: "Apply the first and second laws of thermodynamics to the ideal and real Brayton cycle, calculate compressor and turbine work, and determine overall thermal efficiency.",
+        completed: false,
+        objectives: ["Sketch and label a Brayton cycle P-V and T-s diagram", "Calculate ideal thermal efficiency given pressure ratio", "Quantify isentropic compressor and turbine work"],
+        interactiveLabel: "Brayton Cycle Sim",
+        interactiveType: "simulation",
+        simulationId: "brayton-cycle",
+        quiz: {
+          question: "In an ideal Brayton cycle, which two processes are isentropic (no heat exchange, reversible)?",
+          options: ["Combustion and exhaust", "Compression and combustion", "Compression and expansion (turbine)", "Heat addition and heat rejection"],
+          correctAnswer: 2
+        }
+      },
+      {
+        title: "Turbofan Components & Performance",
+        desc: "Identify each major component of a high-bypass turbofan engine, analyse how bypass ratio affects propulsive efficiency, and evaluate specific fuel consumption (SFC) trade-offs.",
+        completed: false,
+        objectives: ["Define bypass ratio and explain its effect on efficiency", "Trace the flow path through a dual-spool turbofan", "Interpret a turbofan's thrust-specific fuel consumption (TSFC)"],
+        interactiveLabel: "Engine Cutaway 3D",
+        interactiveType: "3d-viewer",
+        simulationId: "jet-engine-3d",
+        quiz: {
+          question: "Why do modern commercial aircraft use high-bypass turbofan engines rather than turbojets?",
+          options: ["Turbofans produce less noise and are more fuel-efficient at subsonic speeds due to higher propulsive efficiency", "Turbojets are heavier and produce less thrust at all speeds", "Turbofans can operate without a combustion chamber at cruise altitude", "Turbojets require more expensive fuel that is unavailable commercially"],
+          correctAnswer: 0
+        }
+      },
+      {
+        title: "Thrust, Materials & Engine Health Monitoring",
+        desc: "Derive the thrust equation from momentum principles, evaluate advanced turbine materials (single-crystal superalloys, CMCs), and assess how Engine Health Monitoring (EHM) uses sensor data to predict component life.",
+        completed: false,
+        objectives: ["Derive the gross thrust equation from Newton's 2nd law", "Explain how thermal barrier coatings extend turbine life", "Describe parameters monitored by ACARS-based EHM systems"],
+        interactiveLabel: "Thrust Calculator",
+        interactiveType: "interactive-quiz",
+        quiz: {
+          question: "According to the jet engine thrust equation, thrust is primarily produced by:",
+          options: ["Burning fuel at higher temperatures", "Increasing the mass flow rate and velocity of the exhaust relative to intake air", "Reducing the engine's overall weight", "Increasing the number of compressor stages"],
+          correctAnswer: 1
+        }
+      }
+    ],
+    math: {
+      title: "Ideal Brayton Cycle Thermal Efficiency",
+      intro: "The thermal efficiency of an ideal Brayton cycle depends solely on the overall pressure ratio and the ratio of specific heats of the working fluid.",
+      formula: "\\eta_{th} = 1 - \\frac{1}{r_p^{\\frac{\\gamma - 1}{\\gamma}}}",
+      variables: [
+        { symbol: "\\eta_{th}", definition: "Ideal thermal efficiency (dimensionless, 0–1)" },
+        { symbol: "r_p", definition: "Overall pressure ratio (compressor exit / inlet pressure)" },
+        { symbol: "\\gamma", definition: "Ratio of specific heats (cp/cv; ≈ 1.4 for air)" }
+      ]
+    },
+    conclusion: {
+      title: "Engineering Flight",
+      content: "The jet engine is one of the most sophisticated thermodynamic machines ever built, operating at the limits of materials science, fluid mechanics, and combustion chemistry. Advances in additive manufacturing, ceramic matrix composites, and open-rotor architecture continue to push efficiency and sustainability boundaries, making cleaner aviation possible.",
+      highlight: "50:1",
+      highlightNote: "overall pressure ratio in the latest generation of turbofan engines"
+    }
+  },
+  JamesWebb: {
+    title: "James Webb Space Telescope",
+    subtitle: "Seeing the Universe's First Light",
+    intro: "The James Webb Space Telescope (JWST) is NASA's flagship space observatory, launched on 25 December 2021 and placed at the Sun-Earth L2 Lagrange point 1.5 million km from Earth. With a 6.5m segmented gold-coated beryllium primary mirror and instruments operating from 0.6 to 28.5 μm (near- to mid-infrared), JWST is designed to observe the first galaxies that formed after the Big Bang, characterise exoplanet atmospheres, and study star and planet formation with unprecedented sensitivity.",
+    category: "Astronomy & Space Science",
+    difficulty: "Advanced",
+    duration: "40 min",
+    iconName: "Telescope",
+    color: "indigo",
+    sections: [
+      {
+        title: "Optics & Mirror Design",
+        content: "JWST's 6.5m primary mirror consists of 18 hexagonal beryllium segments coated with ~48.25g of gold (selected for infrared reflectivity). The segments are adjusted by 132 actuators to nanometre precision to form a single phased optical surface. The Optical Telescope Element (OTE) operates at a focal ratio of f/20, delivering diffraction-limited performance at 2 μm (angular resolution ~0.07 arcseconds). Beryllium was chosen for its low thermal expansion, low density, and high specific stiffness at cryogenic temperatures.",
+        icon: "Eye",
+        color: "text-indigo-400"
+      },
+      {
+        title: "Infrared Astronomy & Redshift",
+        content: "JWST observes in the infrared because the most distant galaxies (z > 6) have their rest-frame UV and optical light redshifted into the near-infrared (λ_obs = λ_emit × (1+z)). Infrared also penetrates dust clouds that block visible light, enabling the study of stellar nurseries and protoplanetary discs. JWST's Mid-InfraRed Instrument (MIRI) operates at 5.6 K — cooled by a dedicated cryocooler — to reduce its own thermal noise below the astronomical signal.",
+        icon: "Radio",
+        color: "text-purple-400"
+      },
+      {
+        title: "L2 Orbit & Sunshield",
+        content: "JWST orbits the Sun-Earth L2 Lagrange point in a halo orbit, keeping the Sun, Earth, and Moon on the same side. Its five-layer kapton sunshield (the size of a tennis court) reduces the thermal load from ~300,000 W on the hot side to ~0.2 W on the cold side, achieving a temperature differential from +85°C (warm side) to −233°C (cold side, 40 K). This passive cooling is essential for MIRI and reduces the infrared background from the telescope itself.",
+        icon: "Shield",
+        color: "text-yellow-400"
+      },
+      {
+        title: "Scientific Instruments & Discoveries",
+        content: "JWST carries four instruments: NIRCam (primary imager, 0.6–5 μm), NIRSpec (multi-object spectrograph, 0.6–5.3 μm), MIRI (imager + spectrograph, 5–28.5 μm), and FGS/NIRISS (guiding + slitless spectroscopy). Early results include the deepest infrared images of the universe (SMACS 0723), detection of CO₂ in exoplanet atmospheres (WASP-39b), and characterisation of galaxies at z ~ 13 (only ~330 million years after the Big Bang).",
+        icon: "Telescope",
+        color: "text-blue-400"
+      }
+    ],
+    modules: [
+      {
+        title: "Mirror & Optical System Design",
+        desc: "Analyse the engineering challenges of building a cryogenic, deployable segmented mirror for space, understand wavefront sensing and control, and evaluate why JWST operates in the infrared.",
+        completed: false,
+        objectives: ["Explain why beryllium is used for JWST mirror segments", "Describe the wavefront sensing and control process", "Calculate diffraction-limited angular resolution using the Rayleigh criterion"],
+        interactiveLabel: "Mirror Alignment Sim",
+        interactiveType: "simulation",
+        simulationId: "jwst-mirror",
+        quiz: {
+          question: "Why are JWST's mirror segments coated with a thin layer of gold?",
+          options: ["Gold is the only metal that can survive the extreme cold of space", "Gold has very high reflectivity in the infrared wavelength range that JWST observes", "Gold is lighter than aluminium and reduces the telescope's total mass", "Gold prevents cosmic ray damage to the beryllium substrate"],
+          correctAnswer: 1
+        }
+      },
+      {
+        title: "Redshift, Infrared & the Early Universe",
+        desc: "Apply the cosmological redshift equation to understand how JWST detects light from the universe's first billion years, and analyse how infrared astronomy reveals hidden cosmic structures.",
+        completed: false,
+        objectives: ["Apply λ_obs = λ_emit(1+z) to calculate observed wavelength", "Explain how JWST's infrared capability complements Hubble's UV/optical coverage", "Interpret a galaxy spectrum from NIRSpec to infer redshift and composition"],
+        interactiveLabel: "Redshift Explorer",
+        interactiveType: "interactive-quiz",
+        quiz: {
+          question: "A galaxy emits light at λ = 120 nm (Lyman-alpha UV). JWST detects it at λ = 840 nm. What is its approximate redshift z?",
+          options: ["z = 3", "z = 6", "z = 10", "z = 0.5"],
+          correctAnswer: 1
+        }
+      },
+      {
+        title: "Exoplanet Atmospheres & Spectroscopy",
+        desc: "Understand transmission and emission spectroscopy techniques used by JWST to characterise exoplanet atmospheres, and evaluate what molecular detections tell us about planetary habitability.",
+        completed: false,
+        objectives: ["Explain the principle of transmission spectroscopy during transit", "Interpret a JWST transmission spectrum to identify molecular species", "Assess the significance of CO₂ detection in exoplanet atmospheres"],
+        interactiveLabel: "Spectroscopy Tool",
+        interactiveType: "simulation",
+        simulationId: "exoplanet-spectroscopy",
+        quiz: {
+          question: "Which JWST instrument first detected CO₂ in the atmosphere of exoplanet WASP-39b?",
+          options: ["MIRI (Mid-InfraRed Instrument)", "NIRSpec (Near InfraRed Spectrograph)", "NIRCam (Near InfraRed Camera)", "FGS/NIRISS (Fine Guidance Sensor)"],
+          correctAnswer: 1
+        }
+      }
+    ],
+    math: {
+      title: "Cosmological Redshift",
+      intro: "Light from distant galaxies is stretched to longer (redder) wavelengths as the universe expands. The redshift z quantifies this stretch and directly relates to the distance and look-back time of the source.",
+      formula: "z = \\frac{\\lambda_{obs} - \\lambda_{emit}}{\\lambda_{emit}} = \\frac{\\lambda_{obs}}{\\lambda_{emit}} - 1",
+      variables: [
+        { symbol: "z", definition: "Cosmological redshift (dimensionless; z=0 means no redshift)" },
+        { symbol: "\\lambda_{obs}", definition: "Observed wavelength of light (nm or μm)" },
+        { symbol: "\\lambda_{emit}", definition: "Rest-frame (emitted) wavelength of the same spectral line (nm or μm)" }
+      ]
+    },
+    conclusion: {
+      title: "A Window to the Cosmos's Dawn",
+      content: "JWST represents the collective effort of thousands of engineers and scientists across 20 nations over 25 years. Its images and spectra are fundamentally rewriting our understanding of galaxy formation, stellar evolution, and planetary atmospheres — and it has barely begun its 20-year mission.",
+      highlight: "13.5 Gyr",
+      highlightNote: "look-back time of the most distant galaxies observed by JWST"
+    }
+  },
+  MarsRover: {
+    title: "Mars Rover",
+    subtitle: "Robotic Exploration of the Red Planet",
+    intro: "Mars rovers are robotic vehicles designed to traverse the Martian surface, conducting scientific experiments and returning data to Earth. From Sojourner (1997) to Curiosity (2012–present) and Perseverance (2021–present), each successive rover has carried more sophisticated instruments, driven farther, and answered deeper questions about Mars's geology, habitability, and potential for past life. Perseverance is also collecting rock core samples for eventual return to Earth.",
+    category: "Space Exploration & Robotics",
+    difficulty: "Advanced",
+    duration: "40 min",
+    iconName: "Rocket",
+    color: "orange",
+    sections: [
+      {
+        title: "Entry, Descent & Landing (EDL)",
+        content: "Arriving at Mars after a ~7-month, ~500 million km journey, the rover must survive the '7 minutes of terror' — EDL. The aeroshell decelerates from ~19,000 km/h using the atmosphere; a 21.5m supersonic parachute further slows descent; retrorockets arrest the fall; and a 'sky crane' — a rocket-powered descent stage — lowers Perseverance on nylon bridles to a gentle 2.7 km/h touchdown. The entire sequence is autonomous: round-trip radio delay (~22 min) makes real-time control impossible.",
+        icon: "Rocket",
+        color: "text-orange-400"
+      },
+      {
+        title: "Rover Design & Power Systems",
+        content: "Perseverance is car-sized (~1,025 kg) with a 6-wheel rocker-bogie suspension system that allows independent wheel articulation over rocks up to 40 cm tall. Power comes from a Multi-Mission Radioisotope Thermoelectric Generator (MMRTG) using the decay heat of ~4.8 kg of Plutonium-238 to generate ~110 W of electrical power via thermoelectric conversion — unlike solar panels, it operates through dust storms and polar nights.",
+        icon: "Zap",
+        color: "text-yellow-400"
+      },
+      {
+        title: "Scientific Instruments & Objectives",
+        content: "Perseverance carries seven primary instruments: Mastcam-Z (stereo zoom imaging), SuperCam (laser spectroscopy for mineralogy), PIXL (X-ray fluorescence for fine-scale geochemistry), SHERLOC (Raman spectroscopy for organics), MEDA (meteorology), RIMFAX (ground-penetrating radar), and MOXIE (in-situ oxygen production from CO₂ — a technology demonstration for future human missions). MOXIE has successfully produced over 122g of O₂ to date.",
+        icon: "Microscope",
+        color: "text-blue-400"
+      },
+      {
+        title: "Ingenuity Helicopter & Mars ISRU",
+        content: "Perseverance carried the Ingenuity Mars Helicopter — the first powered flight on another planet (19 April 2021). Operating in an atmosphere 1% as dense as Earth's, Ingenuity uses counter-rotating blades spinning at ~2,537 RPM to achieve lift. Its success demonstrated the viability of aerial reconnaissance for future Mars exploration. MOXIE's oxygen production validates In-Situ Resource Utilisation (ISRU) — using Mars's atmosphere to produce propellant and breathing oxygen for crewed missions.",
+        icon: "Navigation",
+        color: "text-green-400"
+      }
+    ],
+    modules: [
+      {
+        title: "Entry, Descent & Landing Engineering",
+        desc: "Analyse each phase of Mars EDL in detail, calculate the deceleration forces involved, and evaluate the engineering solutions that enable a rover to survive landing on Mars.",
+        completed: false,
+        objectives: ["Sequence the seven phases of Mars EDL", "Calculate peak deceleration during atmospheric entry using F=ma", "Explain why the sky crane approach was chosen over airbags"],
+        interactiveLabel: "EDL Simulator",
+        interactiveType: "simulation",
+        simulationId: "mars-edl",
+        quiz: {
+          question: "Why is the Mars EDL sequence (entry, descent, landing) conducted autonomously without real-time control from Earth?",
+          options: ["Autonomy rules are required by international space law", "The one-way radio communication delay (~11–22 minutes) makes real-time human control impossible", "Earth-based computers are not powerful enough to control the sequence", "Autonomous operation consumes less battery power during the critical landing phase"],
+          correctAnswer: 1
+        }
+      },
+      {
+        title: "Rover Systems & Radioisotope Power",
+        desc: "Evaluate the rocker-bogie mobility system, analyse thermoelectric power generation from Pu-238 decay, and assess how rover systems are designed for years of autonomous operation in a harsh environment.",
+        completed: false,
+        objectives: ["Explain how the rocker-bogie suspension maintains stability", "Describe the thermoelectric effect and how RTGs generate electricity", "Calculate power budget for key rover subsystems"],
+        interactiveLabel: "Rover Systems 3D",
+        interactiveType: "3d-viewer",
+        simulationId: "mars-rover-systems",
+        quiz: {
+          question: "What is the primary advantage of a Radioisotope Thermoelectric Generator (RTG) over solar panels on Mars?",
+          options: ["RTGs produce more peak power than equivalent-mass solar panels", "RTGs provide continuous power regardless of dust storms, night, and seasonal light variations", "RTGs are lighter and cheaper to manufacture than solar panel arrays", "RTGs can be recharged by beaming power from an orbital satellite"],
+          correctAnswer: 1
+        }
+      },
+      {
+        title: "Astrobiology, Sample Return & ISRU",
+        desc: "Evaluate Perseverance's sample collection strategy and astrobiology goals, analyse the MOXIE oxygen experiment results, and assess the significance of Mars Sample Return for planetary science.",
+        completed: false,
+        objectives: ["Explain what biosignatures Perseverance is searching for and why", "Describe the Mars Sample Return (MSR) campaign architecture", "Evaluate MOXIE's demonstration results and implications for human Mars exploration"],
+        interactiveLabel: "Sample Return Mission",
+        interactiveType: "interactive-quiz",
+        quiz: {
+          question: "What does NASA's MOXIE experiment on the Perseverance rover produce, and why is this significant for future crewed Mars missions?",
+          options: ["Water ice — to demonstrate drinking water can be extracted from the Martian regolith", "Methane fuel — to refuel the rover's propulsion system", "Oxygen (O₂) from Martian CO₂ — demonstrating in-situ resource utilisation for propellant and life support", "Nitrogen — to supplement the rover's atmosphere for instrument operation"],
+          correctAnswer: 2
+        }
+      }
+    ],
+    math: {
+      title: "Rocket Equation & Delta-V Budget",
+      intro: "The Tsiolkovsky rocket equation governs how much velocity change (Δv) a spacecraft can achieve given its propellant mass. Every phase of a Mars mission — launch, transit, EDL, and potential ascent — has a Δv requirement.",
+      formula: "\\Delta v = v_e \\ln\\left(\\frac{m_0}{m_f}\\right)",
+      variables: [
+        { symbol: "\\Delta v", definition: "Change in velocity achievable (m/s)" },
+        { symbol: "v_e", definition: "Effective exhaust velocity of propellant (m/s) = Isp × g₀" },
+        { symbol: "m_0 / m_f", definition: "Ratio of initial (wet) mass to final (dry) mass — the mass ratio" }
+      ]
+    },
+    conclusion: {
+      title: "Humanity's Robotic Vanguard on Mars",
+      content: "Mars rovers have transformed our understanding of a planet that may once have harboured life. Perseverance's sample cache, Ingenuity's aerial demonstrations, and MOXIE's oxygen production are laying the technical and scientific groundwork for the first human footsteps on Mars — a mission that is no longer science fiction but a concrete engineering challenge of this generation.",
+      highlight: "500M km",
+      highlightNote: "average distance travelled through space to reach Mars"
+    }
   }
 };
