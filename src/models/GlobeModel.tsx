@@ -12,8 +12,104 @@ const GEOGRAPHIC_DETAILS: Record<string, string> = {
   "USA": "A transcontinental country primarily in North America. A major global economic and military power with a highly diverse population.",
   "CANADA": "The second-largest country by area, known for its natural beauty, bilingual culture, and high quality of life.",
   "BRAZIL": "The largest country in South America and Latin America, famous for the Amazon rainforest and vibrant carnival celebrations.",
-  "AUSTRALIA": "A country and continent surrounded by the Indian and Pacific oceans, known for its unique wildlife and the Great Barrier Reef."
+  "AUSTRALIA": "A country and continent surrounded by the Indian and Pacific oceans, known for its unique wildlife and the Great Barrier Reef.",
+  "ALGERIA": "The largest country in Africa, with the Sahara Desert covering 90% of its territory.",
+  "SAUDI ARABIA": "The birthplace of Islam and home to Mecca and Medina, covering most of the Arabian Peninsula.",
+  "MEXICO": "A mega-diverse country with ancient Mayan and Aztec civilizations, known for its cuisine and biodiversity.",
+  "ARGENTINA": "The eighth-largest country and home to the spectacular Andes mountains and Patagonian wilderness.",
+  "KAZAKHSTAN": "The world's largest landlocked country, spanning Central Asia and Eastern Europe.",
+  "MONGOLIA": "One of the world's most sparsely populated countries, famous for the Gobi Desert and nomadic culture.",
+  "INDONESIA": "The world's largest archipelago with over 17,000 islands and extraordinary biodiversity.",
+  "EGYPT": "Home to one of the world's oldest civilizations and iconic ancient monuments along the Nile River.",
+  "SOUTH AFRICA": "The 'Rainbow Nation' with 11 official languages, home to extraordinary wildlife and scenic landscapes.",
+  "FRANCE": "Famous for art, cuisine, fashion, and the Eiffel Tower — the most visited country in the world.",
+  "GERMANY": "Europe's largest economy, known for engineering, culture, and the historic Rhine River.",
+  "UK": "An island nation with a rich imperial history that shaped much of the modern world.",
+  "JAPAN": "An island nation famous for technology, samurai history, cherry blossoms, and unique pop culture.",
+  "TURKEY": "A transcontinental country bridging Europe and Asia with a rich Ottoman heritage.",
+  "IRAN": "One of the world's oldest civilizations, formerly known as Persia, with stunning architecture.",
+  "ETHIOPIA": "The birthplace of coffee and one of Africa's oldest nations, with a unique calendar and script.",
+  "NIGERIA": "Africa's most populous nation and largest economy, with over 250 ethnic groups.",
+  "PAKISTAN": "Home to K2, the world's second-highest mountain, and ancient Indus Valley civilizations.",
+  "BANGLADESH": "One of the world's most densely populated countries, located in the Bengal delta.",
+  "VIETNAM": "A Southeast Asian country with stunning landscapes from Ha Long Bay to the Mekong Delta.",
+  "THAILAND": "The 'Land of Smiles', famous for ornate temples, tropical beaches, and vibrant street food.",
+  "SPAIN": "A country of diverse regions, flamenco dancing, and stunning architecture like La Sagrada Família.",
+  "ITALY": "The birthplace of the Roman Empire and Renaissance art, with world-famous cuisine and fashion.",
+  "SOUTH KOREA": "A global leader in technology and K-pop culture, with ancient palaces alongside ultramodern cities.",
+  "COLOMBIA": "Named after Christopher Columbus, known for its coffee, biodiversity, and vibrant culture.",
+  "PERU": "Home to the ancient Incan Empire and Machu Picchu, high in the Andes Mountains.",
+  "UKRAINE": "The largest country entirely within Europe, with vast fertile plains called 'the breadbasket of Europe'.",
+  "POLAND": "A Central European country with a resilient history, known for medieval old towns.",
+  "MOROCCO": "A North African kingdom famous for its medinas, souks, and the Atlas Mountains.",
+  "KENYA": "Home to the Great Rift Valley and the Maasai Mara — one of Africa's premier wildlife destinations.",
+  "TANZANIA": "Home to Mount Kilimanjaro, Africa's highest peak, and the Serengeti National Park.",
+  "CHILE": "The world's longest country from north to south, stretching over 4,300 km along South America's west coast.",
+  "PHILIPPINES": "An archipelago of over 7,600 islands, known for beautiful beaches and biodiversity.",
+  "MALAYSIA": "A multicultural country famous for the Petronas Twin Towers and diverse rainforests.",
+  "IRAQ": "The 'Cradle of Civilization' — ancient Mesopotamia — with the Tigris and Euphrates rivers.",
+  "AFGHANISTAN": "A landlocked country in Central Asia with a rich history as a crossroads of civilizations.",
+  "SUDAN": "Home to more ancient pyramids than Egypt, located along the Nile River.",
+  "SWEDEN": "A Scandinavian nation famous for ABBA, IKEA, Volvo, and breathtaking fjords.",
+  "NORWAY": "Home to the Northern Lights and stunning fjords, consistently ranked the happiest country.",
+  "FINLAND": "Has more saunas than cars! Home to the original Santa Claus village in Lapland.",
 };
+
+const FUN_FACTS: Record<string, string[]> = {
+  "RUSSIA": ["🌍 Crosses 11 time zones — the most of any country!", "🐯 Has over 500 Amur tigers in the wild", "🚂 Trans-Siberian Railway is the world's longest at 9,289 km"],
+  "CHINA": ["🏯 The Great Wall stretches over 21,000 km", "🐼 Giant pandas only live in China", "🧧 China invented paper, printing, gunpowder & the compass"],
+  "INDIA": ["🛺 Has the most post offices in the world", "🐅 Home to 70% of the world's tigers", "♟️ Chess was invented in India around 600 AD"],
+  "USA": ["🗽 The Statue of Liberty was a gift from France in 1886", "🦅 Bald Eagles were nearly extinct in the 1960s but recovered", "🌵 Alaska is bigger than all but 18 countries in the world"],
+  "CANADA": ["🍁 Has the longest coastline of any country — over 202,000 km", "🐻 Has more lakes than all other countries combined", "🏒 Ice hockey is the national winter sport"],
+  "BRAZIL": ["🌿 Amazon rainforest covers 60% of the country", "⚽ Has won the FIFA World Cup 5 times — more than any nation", "🦜 Home to 1,800 species of birds"],
+  "AUSTRALIA": ["🦘 There are more kangaroos than people in Australia", "🪃 The boomerang was invented here over 50,000 years ago", "🏖️ Has over 10,000 beaches — one for every day of your life!"],
+  "ALGERIA": ["🌵 Sahara Desert covers about 90% of the country", "🦅 The national emblem features the crescent moon and star", "🏺 Has some of the oldest cave paintings — 12,000 years old"],
+  "SAUDI ARABIA": ["🕌 Mecca is visited by over 2 million pilgrims annually", "🌴 Produces 1 million tons of dates per year", "🐫 Has the world's largest camel market"],
+  "MEXICO": ["🌮 Chocolate was first made here by the ancient Maya", "🌺 Home to 10–12% of all species on Earth", "🎶 Mariachi music is a UNESCO Cultural Heritage"],
+  "ARGENTINA": ["🥩 Consumes the most beef per capita in the world", "💃 Birthplace of the tango dance", "🏔️ Aconcagua is the highest mountain outside Asia at 6,961 m"],
+  "JAPAN": ["🗻 Mount Fuji is Japan's highest peak at 3,776 m", "🚄 Shinkansen bullet trains are on time to within 1 minute", "🌸 Has over 200 cherry blossom festivals annually"],
+  "FRANCE": ["🗼 The Eiffel Tower grows 15 cm taller in summer heat", "🧀 Has over 1,200 varieties of cheese", "🐓 Has more time zones than any other country — 12!"],
+  "UK": ["☂️ London averages only 1.5 hours of sun per day in winter", "📖 The British Museum attracts 6 million visitors per year", "🎭 Shakespeare wrote 37 plays that still influence culture today"],
+  "INDIA": ["🛺 Has the most post offices in the world — over 150,000", "🐅 Home to 70% of the world's tigers", "♟️ Chess was invented in India around 600 AD"],
+  "INDONESIA": ["🏝️ Spreads across an area wider than the USA", "🌋 Has about 130 active volcanoes — the most in the world", "🦎 Home to the Komodo dragon, the world's largest lizard"],
+  "BRAZIL": ["🌿 Amazon rainforest covers 60% of the country", "⚽ Has won the FIFA World Cup 5 times", "🦜 Home to 1,800 species of birds"],
+  "EGYPT": ["🏛️ The Great Pyramid was the tallest structure for 3,800 years", "🐊 Nile River is the longest river in the world", "🐱 Ancient Egyptians worshipped cats as sacred animals"],
+  "GERMANY": ["🍺 Has over 1,300 types of beer", "🚗 Autobahn has sections with no speed limit", "🎶 Beethoven, Bach, and Brahms were all German"],
+  "JAPAN": ["🎮 Nintendo, Sony, and Toyota all started in Japan", "🐡 The Japanese puffer fish (fugu) is deadly if prepared wrong", "⛩️ Japan has over 80,000 Shinto shrines"],
+  "KENYA": ["🏃 Kenya has produced more Olympic marathon champions than any other country", "🦁 Has over 40% of Africa's wildlife species", "☕ Tea is Kenya's most valuable export"],
+  "PERU": ["🦙 80% of the world's alpacas live in Peru", "🥔 Potato originated in Peru — with over 3,000 varieties!", "✨ Machu Picchu sits at 2,430 metres above sea level"],
+  "CHILE": ["🌶️ Named one of the driest places on Earth — Atacama Desert", "🍷 Produces world-famous Malbec and Cabernet wines", "🔭 Has some of the clearest skies for stargazing in the world"],
+  "NORWAY": ["🌅 Has the midnight sun for 76 days a year above Arctic Circle", "🐟 Exports the most salmon in the world", "🛳️ Has the longest road tunnel in the world — 24.5 km"],
+  "SWEDEN": ["📱 Spotify and Minecraft were both created in Sweden", "♻️ Recycles 99% of household waste", "🧊 Has an entire hotel made of ice rebuilt every year"],
+  "FINLAND": ["🎅 Santa Claus officially lives in Rovaniemi, Finland", "🏊 Has over 3 million saunas for 5.5 million people", "🦌 Reindeer outnumber people in some northern regions"],
+  "SOUTH KOREA": ["📱 South Korea has the fastest internet in the world", "🎮 Professional gaming (esports) is a massive national sport", "🍜 Instant noodles (ramen) were popularized here"],
+  "TURKEY": ["🌷 Tulips originated in Turkey, not the Netherlands!", "🧶 Istanbul is the only city in the world on two continents", "☕ Turkish coffee is brewed directly in the cup without a filter"],
+  "VIETNAM": ["🍜 Pho soup is eaten for breakfast, lunch, and dinner", "🛵 Motorbikes outnumber cars 4 to 1", "🌊 Has 3,260 km of coastline with stunning beaches"],
+  "THAILAND": ["🐘 White elephants are considered sacred and royal", "🙏 Has over 40,000 Buddhist temples", "🌺 Orchids are Thailand's most exported flower"],
+  "NIGERIA": ["🎬 'Nollywood' is the world's 2nd largest film industry", "🥁 Has over 521 different languages spoken", "🦅 The eagle on its flag represents strength"],
+  "PAKISTAN": ["🏔️ Has 5 of the world's 14 tallest mountains", "🧪 Algebra was developed by Muslim scholars from this region", "🌹 Pakistan grows the most roses for rose oil"],
+  "SOUTH AFRICA": ["💎 Produces over 70% of the world's platinum", "🌈 Has 11 official languages", "🦏 Home to 80% of the world's rhinos"],
+  "ETHIOPIA": ["☕ Coffee originated in Ethiopia — legend says a goat herder discovered it!", "🕊️ Unique 13-month calendar means they celebrate New Year on Sep 11", "🏺 'Lucy' — a 3.2 million year old fossil — was found here"],
+  "COLOMBIA": ["☕ Produces some of the world's finest Arabica coffee", "🌸 Has 1,800 orchid species — the most of any country", "💛 Has the world's largest population of blue-and-yellow macaws"],
+  "MALAYSIA": ["🦧 Borneo is home to wild orangutans", "🌴 Produces 90% of the world's palm oil", "🏙️ The Petronas Towers were the world's tallest from 1998–2004"],
+  "IRAN": ["🎨 Persian rugs are over 2,500 years old", "🌹 Iran is the world's largest producer of saffron", "♟️ Chess reached Europe via Persia (Iran)"],
+  "IRAQ": ["📜 Cuneiform writing — the world's first writing system — originated here", "🌊 Tigers and lions once roamed ancient Mesopotamia", "🏛️ Babylon was once the largest city in the world"],
+  "UKRAINE": ["🌻 Sunflower is the national flower and a major crop", "🎼 Nutcracker composer Tchaikovsky was Ukrainian-born", "⚛️ Chernobyl exclusion zone is now a surprising wildlife refuge"],
+  "POLAND": ["🎹 Frederic Chopin was Polish", "🧀 Pierogi and kielbasa are beloved national dishes", "🏰 Wrocław has 112 bridges — more than Venice!"],
+  "MOROCCO": ["🐪 Used to export 'Morocco leather' made from goat skin", "🎨 Fez city has the world's oldest university — founded 859 AD", "🌵 Argan oil — used in luxury cosmetics — only comes from here"],
+  "TANZANIA": ["🌋 Olduvai Gorge is where the earliest human fossils were found", "🐘 Has the largest elephant population in Africa", "🏔️ Kilimanjaro's ice caps are predicted to disappear by 2060"],
+  "PHILIPPINES": ["🏝️ Has the world's longest coastline for an archipelago", "🎤 Karaoke is extremely popular — called 'videoke' here", "🦅 The Philippine eagle has a wingspan of 2 metres"],
+  "AFGHANISTAN": ["🌺 Once known as 'the crossroads of Central Asia'", "🎯 Buzkashi — polo with a goat carcass — is the national sport", "💎 Home to the finest lapis lazuli gemstones in the world"],
+  "SUDAN": ["🏛️ Has more pyramids than Egypt — over 200!", "🌊 The Blue Nile and White Nile meet in Khartoum", "🦒 Has a unique species of giraffe found nowhere else"],
+  "BANGLADESH": ["🐅 Sundarbans mangrove forest is home to the Bengal tiger", "🌿 Jute — used in burlap sacks — is a major export", "🎶 Has one of the world's most beautiful national anthems"],
+  "VIETNAM": ["🌿 Vietnam is one of the top coffee producers in the world", "🛵 Ho Chi Minh City has 8 million motorbikes", "🐉 Vietnamese mythology says people descended from a dragon"],
+  "SPAIN": ["🍅 La Tomatina festival involves throwing tomatoes at each other", "🐂 Has over 1,700 bullfighting events per year", "🎨 Picasso, Dalí, and Goya were all Spanish artists"],
+  "ITALY": ["🍕 Pizza was invented in Naples in the 18th century", "🏛️ Rome has more fountains than any other city in the world", "🌋 Mount Vesuvius buried Pompeii in 79 AD"],
+  "KAZAKHSTAN": ["🚀 Baikonur Cosmodrome — where Yuri Gagarin launched to space — is here", "🐎 Horse meat is a traditional delicacy", "🌾 Was the world's largest wheat exporter in the Soviet era"],
+  "MONGOLIA": ["🐎 Has more horses than people", "🏕️ 30% of the population still lives as nomads", "🌡️ Temperatures range from -45°C in winter to 40°C in summer"],
+  "ALGERIA": ["🌵 The Sahara has grown 10% since the 1920s", "🎨 Cave art in Tassili n'Ajjer dates back 12,000 years", "🌍 Third-largest country in Africa"],
+};
+
 
 function Hoverable({ name, description, children, color = "#00ffff" }: { name: string, description: string, children: React.ReactNode, color?: string }) {
   const [hovered, setHovered] = useState(false);
@@ -291,13 +387,26 @@ export function GlobeModel({ showLabels, setFocusTarget, controlsRef, detail = '
             </Billboard>
             {hoveredCountryState === country.name && (
               <Html center position={[0, 0, 0]}>
-                <div className="bg-zinc-900/95 border border-white/10 text-white p-3 rounded-xl text-[10px] pointer-events-none whitespace-normal w-48 shadow-2xl z-50 backdrop-blur-md">
-                   <div className="flex flex-col gap-1">
-                     <strong className="uppercase tracking-widest text-[8px] mb-1 text-cyan-400">Geographic Analysis</strong>
-                     <span className="font-bold text-white text-xs">{country.name}</span>
-                     <p className="text-zinc-400 leading-relaxed font-medium">
+                <div className="bg-zinc-900/97 border border-white/15 text-white p-4 rounded-2xl text-[10px] pointer-events-none whitespace-normal w-64 shadow-2xl z-50 backdrop-blur-xl">
+                   <div className="flex flex-col gap-2">
+                     <strong className="uppercase tracking-widest text-[8px] text-cyan-400 flex items-center gap-1">
+                       🌐 Geographic Analysis
+                     </strong>
+                     <span className="font-bold text-white text-xs border-b border-white/10 pb-2">{country.name}</span>
+                     <p className="text-zinc-400 leading-relaxed font-medium text-[10px]">
                        {GEOGRAPHIC_DETAILS[country.name] || "Detailed geographic and geopolitical overview of the selected region."}
                      </p>
+                     {FUN_FACTS[country.name] && (
+                       <div className="mt-1 pt-2 border-t border-yellow-500/20">
+                         <div className="text-[8px] font-black uppercase tracking-widest text-yellow-400 mb-1.5">✨ Fun Facts</div>
+                         <ul className="space-y-1">
+                           {FUN_FACTS[country.name].map((fact, fi) => (
+                             <li key={fi} className="text-[9px] text-zinc-300 leading-snug">{fact}</li>
+                           ))}
+                         </ul>
+                       </div>
+                     )}
+                     <div className="text-[8px] text-zinc-600 text-center pt-1">Click to zoom in</div>
                    </div>
                 </div>
               </Html>

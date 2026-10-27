@@ -43,6 +43,9 @@ export function AdvancedMedicalBody({ showLabels = true }: { showLabels?: boolea
     setIsTranscriptionOpen 
   } = useStore();
 
+  // Fallback state — if Sketchfab doesn't load in time, use direct embed
+  const [loadFailed, setLoadFailed] = useState(false);
+
   // AR settings, variables, and state hooks
   const [isARHubOpen, setIsARHubOpen] = useState(false);
   const [arMode, setArMode] = useState<'none' | 'simulated' | 'webxr'>('none');
@@ -253,10 +256,17 @@ export function AdvancedMedicalBody({ showLabels = true }: { showLabels?: boolea
 
     return () => {
       isMounted = false;
-      // Cleanup api if needed, Sketchfab doesn't have a direct destroy usually, 
-      // but the iframe gets unmounted anyway.
     };
   }, []);
+
+  // If Sketchfab API hasn't initialized after 12 seconds, switch to direct iframe
+  useEffect(() => {
+    if (api) return; // Already loaded fine
+    const timer = setTimeout(() => {
+      if (!api) setLoadFailed(true);
+    }, 12000);
+    return () => clearTimeout(timer);
+  }, [api]);
 
   useEffect(() => {
     if (!api) return;
@@ -670,8 +680,28 @@ export function AdvancedMedicalBody({ showLabels = true }: { showLabels?: boolea
           </>
         )}
 
+        {/* DIRECT IFRAME FALLBACK — shown if Sketchfab API fails to init */}
+        {loadFailed && !api && (
+          <div className="absolute inset-0 z-20 flex flex-col">
+            <div className="flex items-center justify-between px-4 py-2 bg-zinc-950/90 border-b border-white/5">
+              <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse inline-block"></span>
+                Human Body — 3D Viewer
+              </span>
+              <span className="text-[9px] text-zinc-500">Sketchfab Interactive Model</span>
+            </div>
+            <iframe
+              title="Human Body 3D"
+              src="https://sketchfab.com/models/9b0b079953b840bc9a13f524b60041e4/embed?autostart=1&preload=1&transparent=0&ui_theme=dark&ui_infos=0&ui_watermark=0"
+              className="flex-1 w-full border-0"
+              allow="autoplay; fullscreen; vr"
+              allowFullScreen
+            />
+          </div>
+        )}
+
         {/* LOADING SCREEN */}
-        {!api && (
+        {!api && !loadFailed && (
           <div className="absolute inset-0 flex items-center justify-center bg-zinc-950/90 z-20 font-mono text-zinc-500 text-sm backdrop-blur-md">
             <div className="flex flex-col items-center gap-6">
               <div className="relative flex items-center justify-center w-16 h-16">
@@ -680,7 +710,8 @@ export function AdvancedMedicalBody({ showLabels = true }: { showLabels?: boolea
               </div>
               <div className="flex flex-col items-center gap-1">
                 <div className="text-white font-bold tracking-widest text-xs">SYNCHRONIZING</div>
-                <div className="text-[9px] uppercase tracking-[0.3em] opacity-50">Neuro-Haptic Hologram Engine</div>
+                <div className="text-[9px] uppercase tracking-[0.3em] opacity-50">Loading Human Body Model...</div>
+                <div className="text-[8px] text-zinc-600 mt-2">If this takes too long, the direct viewer will load automatically.</div>
               </div>
             </div>
           </div>
