@@ -3,7 +3,8 @@ import { Topic } from '../types';
 import { 
   Menu, Bot, Maximize, Minimize, Bell, Hand, Volume2, VolumeX, FileText, 
   Mic, MicOff, Trophy, BookOpen, BrainCircuit, ChevronDown, Settings2,
-  Monitor, GraduationCap, Info, Captions, Pencil, Calendar, PenTool, CheckSquare, FlaskConical, Sun, Moon
+  Monitor, GraduationCap, Info, Captions, Pencil, Calendar, PenTool, CheckSquare, FlaskConical, Sun, Moon,
+  ShieldCheck, Radio, Presentation
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useStore } from '../store/useStore';
@@ -33,6 +34,8 @@ export function Topbar() {
     setIsQuizOpen,
     setIsAttendanceOpen,
     setIsTeachersDeskOpen,
+    setIsTeacherControlOpen,
+    setIsLessonCreatorOpen,
     setIsSidebarOpen,
     setIsAppStarted,
     user,
@@ -194,6 +197,29 @@ export function Topbar() {
       </div>
 
       <div className="flex items-center gap-2 sm:gap-4">
+        {/* Role Badge */}
+        {!isMobile && (
+          <div className="flex items-center">
+            {userRole === 'teacher' ? (
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => useStore.getState().setIsTeacherControlOpen(true)}
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.25)] text-[9px] font-mono font-black uppercase tracking-widest transition-all"
+                title="Open Teacher Control Matrix"
+              >
+                <ShieldCheck size={13} className="text-cyan-400" />
+                <span>Instructor Console</span>
+              </motion.button>
+            ) : (
+              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 text-[9px] font-mono font-black uppercase tracking-widest">
+                <GraduationCap size={13} className="text-indigo-400" />
+                <span>Student Sandbox</span>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Exit Button */}
         {!isMobile && (
           <motion.button 
@@ -236,14 +262,16 @@ export function Topbar() {
                 className="absolute right-0 mt-4 w-64 crystal-glass rounded-[2rem] shadow-[0_40px_100px_rgba(0,0,0,0.7)] p-3 z-50 border border-white/20"
               >
                 {[
+                  { icon: ShieldCheck, label: 'Teacher Command Center', color: 'text-cyan-400', action: () => useStore.getState().setIsTeacherControlOpen(curr => !curr), role: 'teacher' },
                   { icon: BookOpen, label: 'Course Material', color: 'text-blue-400', action: toggleCourse },
                   { icon: BrainCircuit, label: 'Knowledge Quiz', color: 'text-purple-400', action: toggleQuiz },
-                  { icon: Calendar, label: 'Attendance', color: 'text-emerald-400', action: toggleAttendance },
-                  { icon: Pencil, label: "Teacher's Desk", color: 'text-cyan-400', action: toggleTeachersDesk, role: 'teacher' },
+                  { icon: Calendar, label: userRole === 'teacher' ? 'Classroom Attendance' : 'My Attendance', color: 'text-emerald-400', action: toggleAttendance },
+                  { icon: Presentation, label: "Teacher's Desk (Air Draw)", color: 'text-cyan-400', action: toggleTeachersDesk, role: 'teacher' },
+                  { icon: Pencil, label: "Lesson Creator", color: 'text-purple-400', action: () => useStore.getState().setIsLessonCreatorOpen(curr => !curr), role: 'teacher' },
                   { icon: FileText, label: 'Lecture Notes', color: 'text-amber-400', action: toggleNotes },
                   { icon: CheckSquare, label: 'Task Manager', color: 'text-emerald-400', action: () => useStore.getState().setIsTaskManagerOpen(curr => !curr) },
                   { icon: FlaskConical, label: 'Virtual Lab', color: 'text-pink-400', action: () => useStore.getState().setIsVirtualLabOpen(curr => !curr) },
-                  { icon: Trophy, label: 'Student Progress', color: 'text-yellow-400', action: toggleProgress, border: true },
+                  { icon: Trophy, label: userRole === 'teacher' ? 'Student Analytics & Mastery' : 'Student Progress', color: 'text-yellow-400', action: toggleProgress, border: true },
                 ].map((item, i) => {
                   if (item.role && userRole !== item.role) return null;
                   return (

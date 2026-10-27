@@ -23,6 +23,11 @@ import {
   Award,
   Trophy,
   Hexagon,
+  ShieldCheck,
+  Users,
+  Presentation,
+  Radio,
+  BookOpen,
 } from "lucide-react";
 import {
   AreaChart,
@@ -58,7 +63,34 @@ export function MainDashboard() {
     return () => clearInterval(timer);
   }, []);
 
-  const stats = [
+  const isTeacher = userRole === "teacher";
+
+  const stats = isTeacher ? [
+    {
+      label: "Classroom Size",
+      value: "28 Scholars",
+      icon: Users,
+      color: "text-cyan-500",
+    },
+    {
+      label: "Teaching Hours",
+      value: "14.5 hrs",
+      icon: Clock,
+      color: "text-indigo-500",
+    },
+    {
+      label: "Avg Comprehension",
+      value: "89.2%",
+      icon: Brain,
+      color: "text-emerald-500",
+    },
+    {
+      label: "Curriculum Modules",
+      value: "18 Deployed",
+      icon: BookOpen,
+      color: "text-amber-500",
+    },
+  ] : [
     {
       label: "Modules Completed",
       value:
@@ -216,8 +248,9 @@ export function MainDashboard() {
               {user?.displayName?.split(" ")[0] || "Scholar"}
             </h1>
             <p className="text-lg text-zinc-600 dark:text-zinc-400 mt-6 max-w-2xl font-medium leading-relaxed">
-              Your cognitive interface is synchronized. You have pending
-              visualizations in Advanced Calculus and Special Relativity.
+              {isTeacher 
+                ? "Your instructor command console is primed. You can broadcast real-time 3D models, launch the Teacher's Desk air-draw interface, or oversee student telemetry."
+                : "Your cognitive interface is synchronized. You have pending visualizations in Advanced Calculus and Special Relativity."}
             </p>
           </motion.div>
 
@@ -232,29 +265,29 @@ export function MainDashboard() {
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 dark:from-indigo-500/10 to-purple-500/5 dark:to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative z-10 space-y-6">
                   <div className="w-12 h-12 rounded-full bg-indigo-500/5 dark:bg-indigo-500/20 border border-indigo-500/10 dark:border-indigo-500/30 flex items-center justify-center text-indigo-500 dark:text-indigo-400 shadow-[0_8px_16px_rgba(99,102,241,0.08)] dark:shadow-[0_0_20px_rgba(99,102,241,0.2)]">
-                    <Target size={24} />
+                    {isTeacher ? <ShieldCheck size={24} className="text-cyan-400" /> : <Target size={24} />}
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-zinc-900 dark:text-white tracking-tight dark:text-glow">
-                      Active Protocol
+                      {isTeacher ? "Command Protocol" : "Active Protocol"}
                     </h3>
                     <p className="text-sm text-indigo-500/60 dark:text-indigo-200/60 mt-1 font-medium">
-                      Mastery of Fluid Dynamics
+                      {isTeacher ? "Class Synchronization Active" : "Mastery of Fluid Dynamics"}
                     </p>
                   </div>
                   <div className="space-y-2 pt-2">
                     <div className="flex justify-between text-[10px] font-black uppercase tracking-[0.2em]">
                       <span className="text-zinc-400 dark:text-zinc-500">
-                        Completion
+                        {isTeacher ? "Learners Synced" : "Completion"}
                       </span>
                       <span className="text-indigo-500 dark:text-indigo-400">
-                        88%
+                        {isTeacher ? "100% (28/28)" : "88%"}
                       </span>
                     </div>
                     <div className="h-1.5 w-full bg-zinc-100 dark:bg-white/5 rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
-                        animate={{ width: "88%" }}
+                        animate={{ width: isTeacher ? "100%" : "88%" }}
                         transition={{
                           duration: 1,
                           delay: 0.5,
@@ -265,10 +298,20 @@ export function MainDashboard() {
                     </div>
                   </div>
                   <button
-                    onClick={() => setActiveTopic("AircraftAerodynamics")}
-                    className="w-full py-3 mt-4 bg-indigo-600 dark:bg-white text-white dark:text-black rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-[0_10px_20px_rgba(79,70,229,0.15)] dark:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                    onClick={() => {
+                      if (isTeacher) {
+                        useStore.getState().setIsTeacherControlOpen(true);
+                      } else {
+                        setActiveTopic("AircraftAerodynamics");
+                      }
+                    }}
+                    className={`w-full py-3 mt-4 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-[0_10px_20px_rgba(79,70,229,0.15)] dark:shadow-[0_0_20px_rgba(255,255,255,0.2)] ${
+                      isTeacher 
+                        ? 'bg-cyan-500 hover:bg-cyan-400 text-zinc-950 shadow-[0_0_25px_rgba(6,182,212,0.4)]' 
+                        : 'bg-indigo-600 dark:bg-white text-white dark:text-black'
+                    }`}
                   >
-                    Resume Simulation
+                    {isTeacher ? "Open Teacher Matrix" : "Resume Simulation"}
                     <ArrowRight size={14} />
                   </button>
                 </div>
@@ -510,30 +553,51 @@ export function MainDashboard() {
             initial={{ opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden crystal-glass p-10 rounded-[40px] group hover:border-indigo-500/30 transition-all border border-zinc-200/50 dark:border-white/5"
+            className={`relative overflow-hidden crystal-glass p-10 rounded-[40px] group transition-all border ${
+              isTeacher 
+                ? 'border-cyan-500/30 hover:border-cyan-500/50 bg-cyan-950/10' 
+                : 'border-zinc-200/50 dark:border-white/5 hover:border-indigo-500/30'
+            }`}
           >
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-indigo-500/5 to-transparent rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4 group-hover:bg-indigo-500/10 transition-colors duration-1000" />
+            <div className={`absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4 transition-colors duration-1000 ${
+              isTeacher ? 'bg-gradient-to-br from-cyan-500/10 to-transparent group-hover:bg-cyan-500/20' : 'bg-gradient-to-br from-indigo-500/5 to-transparent group-hover:bg-indigo-500/10'
+            }`} />
 
             <div className="relative z-10 flex flex-col h-full justify-between gap-12">
               <div>
-                <div className="w-14 h-14 rounded-2xl bg-white/50 dark:bg-white/5 flex items-center justify-center text-indigo-600 dark:text-indigo-400 border border-zinc-200/60 dark:border-white/10 mb-8 overflow-hidden relative shadow-inner">
-                  <div className="absolute inset-0 bg-indigo-500/10 dark:bg-indigo-500/20 blur-xl animate-pulse" />
-                  <Mic size={24} className="relative z-10" />
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center border mb-8 overflow-hidden relative shadow-inner ${
+                  isTeacher 
+                    ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' 
+                    : 'bg-white/50 dark:bg-white/5 text-indigo-600 dark:text-indigo-400 border-zinc-200/60 dark:border-white/10'
+                }`}>
+                  <div className={`absolute inset-0 blur-xl animate-pulse ${isTeacher ? 'bg-cyan-500/30' : 'bg-indigo-500/10 dark:bg-indigo-500/20'}`} />
+                  {isTeacher ? <ShieldCheck size={28} className="relative z-10" /> : <Mic size={24} className="relative z-10" />}
                 </div>
                 <h3 className="text-3xl font-display font-medium text-zinc-900 dark:text-white tracking-tight mb-4">
-                  Live Transcription Protocol
+                  {isTeacher ? "Teacher Command Matrix" : "Live Transcription Protocol"}
                 </h3>
                 <p className="text-zinc-500 dark:text-zinc-400 max-w-sm text-lg leading-relaxed">
-                  Engage acoustic sensors to capture and synthesize real-time
-                  lecture data into holographic substrates.
+                  {isTeacher 
+                    ? "Control classroom telemetry, push synchronized 3D models to all devices, and monitor student comprehension."
+                    : "Engage acoustic sensors to capture and synthesize real-time lecture data into holographic substrates."}
                 </p>
               </div>
               <button
-                onClick={() => useStore.getState().setIsTranscriptionOpen(true)}
-                className="flex items-center gap-3 w-fit px-8 py-4 rounded-2xl bg-zinc-900 dark:bg-white text-white dark:text-black font-black uppercase tracking-[0.2em] text-xs hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_0_20px_rgba(0,0,0,0.1)] dark:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                onClick={() => {
+                  if (isTeacher) {
+                    useStore.getState().setIsTeacherControlOpen(true);
+                  } else {
+                    useStore.getState().setIsTranscriptionOpen(true);
+                  }
+                }}
+                className={`flex items-center gap-3 w-fit px-8 py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_0_20px_rgba(0,0,0,0.1)] ${
+                  isTeacher 
+                    ? 'bg-cyan-500 text-zinc-950 hover:bg-cyan-400 shadow-[0_0_25px_rgba(6,182,212,0.3)]' 
+                    : 'bg-zinc-900 dark:bg-white text-white dark:text-black dark:shadow-[0_0_20px_rgba(255,255,255,0.2)]'
+                }`}
               >
-                <div className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse shadow-[0_0_10px_rgba(244,63,94,0.8)]" />
-                Initialize Sensors
+                <div className={`w-2.5 h-2.5 rounded-full animate-pulse ${isTeacher ? 'bg-zinc-950 shadow-[0_0_10px_rgba(0,0,0,0.8)]' : 'bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.8)]'}`} />
+                {isTeacher ? "Open Instructor Matrix" : "Initialize Sensors"}
               </button>
             </div>
           </motion.div>
@@ -544,7 +608,11 @@ export function MainDashboard() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="relative overflow-hidden liquid-glass p-10 rounded-[40px] group hover:border-purple-500/30 transition-all"
+            className={`relative overflow-hidden liquid-glass p-10 rounded-[40px] group transition-all border ${
+              isTeacher 
+                ? 'border-purple-500/30 hover:border-purple-500/50' 
+                : 'hover:border-purple-500/30'
+            }`}
           >
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover opacity-[0.03] grayscale -z-10 group-hover:opacity-[0.08] transition-opacity duration-1000" />
             <div className="absolute inset-0 bg-gradient-to-t from-white/80 dark:from-black/80 via-white/40 dark:via-black/40 to-transparent" />
@@ -553,24 +621,29 @@ export function MainDashboard() {
               <div>
                 <div className="w-14 h-14 rounded-2xl bg-white/50 dark:bg-white/5 flex items-center justify-center text-purple-600 dark:text-purple-400 border border-zinc-200/60 dark:border-white/10 mb-8 overflow-hidden relative shadow-inner">
                   <div className="absolute inset-0 bg-purple-500/10 dark:bg-purple-500/20 blur-xl group-hover:rotate-180 transition-transform duration-1000" />
-                  <Settings
-                    size={28}
-                    className="relative z-10 group-hover:rotate-90 transition-transform duration-500"
-                  />
+                  {isTeacher ? (
+                    <BookOpen size={28} className="relative z-10" />
+                  ) : (
+                    <Settings
+                      size={28}
+                      className="relative z-10 group-hover:rotate-90 transition-transform duration-500"
+                    />
+                  )}
                 </div>
                 <h3 className="text-3xl font-display font-medium text-zinc-900 dark:text-white tracking-tight mb-4">
-                  Neural Architecture Builder
+                  {isTeacher ? "Curriculum Lesson Architect" : "Neural Architecture Builder"}
                 </h3>
                 <p className="text-zinc-500 dark:text-zinc-400 max-w-sm text-lg leading-relaxed">
-                  Construct complex physical and chemical interactive spaces
-                  using node-based reasoning.
+                  {isTeacher 
+                    ? "Author custom interactive modules, 3D lab steps, dictation notes, and class quizzes."
+                    : "Construct complex physical and chemical interactive spaces using node-based reasoning."}
                 </p>
               </div>
               <button
                 onClick={() => useStore.getState().setIsLessonCreatorOpen(true)}
                 className="flex items-center justify-between gap-4 w-full sm:w-fit px-8 py-4 rounded-2xl bg-white/50 dark:bg-white/5 text-zinc-900 dark:text-white border border-zinc-200/60 dark:border-white/10 font-bold text-sm tracking-wide hover:bg-white dark:hover:bg-white/10 hover:border-zinc-300 dark:hover:border-white/20 transition-all shadow-sm dark:shadow-none"
               >
-                Launch Platform
+                {isTeacher ? "Create New Lesson Module" : "Launch Platform"}
                 <ChevronRight
                   size={18}
                   className="text-zinc-500 dark:text-zinc-400"

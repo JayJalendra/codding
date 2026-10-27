@@ -4,7 +4,7 @@ import {
   Atom, Dna, Orbit, Sparkles, Upload, Zap, FlaskConical, 
   Binary, Shapes, Landmark, Wrench, GraduationCap, Library, Heart, Activity, Cpu, Rocket, BookOpenText,
   Search, ChevronRight, Globe, X, Image as ImageIcon, Monitor, Sun, Moon,
-  BookOpen
+  BookOpen, ShieldCheck, Presentation, Pencil, Radio
 } from 'lucide-react';
 import { Topic } from '../types';
 import { motion, AnimatePresence } from 'motion/react';
@@ -463,6 +463,10 @@ export function Sidebar() {
     setIsTranscriptionOpen,
     isTranscriptionOpen,
     setIsSidebarOpen,
+    userRole,
+    setIsTeacherControlOpen,
+    setIsTeachersDeskOpen,
+    setIsLessonCreatorOpen,
     theme,
     setTheme,
     isMobile
@@ -477,6 +481,10 @@ export function Sidebar() {
     setIsTranscriptionOpen: state.setIsTranscriptionOpen,
     isTranscriptionOpen: state.isTranscriptionOpen,
     setIsSidebarOpen: state.setIsSidebarOpen,
+    userRole: state.userRole,
+    setIsTeacherControlOpen: state.setIsTeacherControlOpen,
+    setIsTeachersDeskOpen: state.setIsTeachersDeskOpen,
+    setIsLessonCreatorOpen: state.setIsLessonCreatorOpen,
     theme: state.theme,
     setTheme: state.setTheme,
     isMobile: state.isMobile
@@ -604,6 +612,36 @@ export function Sidebar() {
               className="w-full bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10 rounded-2xl py-3 pl-10 pr-4 text-[11px] font-mono text-zinc-900 dark:text-zinc-200 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30 transition-all"
             />
           </div>
+
+          {/* Teacher Sandbox Dedicated Command Hub */}
+          {userRole === 'teacher' && (
+            <motion.div 
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="p-3 bg-gradient-to-br from-cyan-500/15 via-cyan-500/5 to-transparent border border-cyan-500/30 rounded-2xl space-y-2 shadow-[0_0_20px_rgba(6,182,212,0.1)]"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-[9px] font-mono font-black uppercase tracking-widest text-cyan-400 flex items-center gap-1.5">
+                  <ShieldCheck size={12} /> Teacher Control Matrix
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+              </div>
+              <div className="grid grid-cols-2 gap-1.5 pt-1">
+                <button
+                  onClick={() => setIsTeacherControlOpen(true)}
+                  className="px-2.5 py-1.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-200 border border-cyan-500/40 text-[9px] font-bold text-center uppercase tracking-wider transition-all"
+                >
+                  Class Director
+                </button>
+                <button
+                  onClick={() => setIsTeachersDeskOpen(true)}
+                  className="px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-200 border border-white/10 text-[9px] font-bold text-center uppercase tracking-wider transition-all"
+                >
+                  Air-Draw Desk
+                </button>
+              </div>
+            </motion.div>
+          )}
 
           {/* Quick buttons */}
           <div className="grid grid-cols-2 gap-2">

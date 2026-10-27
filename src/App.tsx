@@ -41,6 +41,7 @@ import { TranscriptPanel } from './components/TranscriptPanel';
 import { LiveCaptions } from './components/LiveCaptions';
 import { ClassroomSubtitles } from './components/ClassroomSubtitles';
 import { TeachersDeskPanel } from './components/TeachersDeskPanel';
+import { TeacherCommandCenter } from './components/TeacherCommandCenter';
 import { CircuitBuilder } from './components/circuits/CircuitBuilder';
 import { AirDrawPanel } from './components/AirDrawPanel';
 import { AttendancePanel } from './components/AttendancePanel';
@@ -86,6 +87,7 @@ const TeacherVoiceToTextPanelMemo = React.memo(TeacherVoiceToTextPanel);
 const TranscriptPanelMemo = React.memo(TranscriptPanel);
 const LiveCaptionsMemo = React.memo(LiveCaptions);
 const TeachersDeskPanelMemo = React.memo(TeachersDeskPanel);
+const TeacherCommandCenterMemo = React.memo(TeacherCommandCenter);
 const AirDrawPanelMemo = React.memo(AirDrawPanel);
 const TaskManagerPanelMemo = React.memo(TaskManagerPanel);
 const VirtualLabPanelMemo = React.memo(VirtualLabPanel);
@@ -126,6 +128,7 @@ export default function App() {
     isCourseOpen, setIsCourseOpen,
     isQuizOpen, setIsQuizOpen,
     isTeachersDeskOpen, setIsTeachersDeskOpen,
+    isTeacherControlOpen, setIsTeacherControlOpen,
     isProfileOpen, setIsProfileOpen,
     isSettingsOpen, setIsSettingsOpen,
     isSubscriptionOpen, setIsSubscriptionOpen,
@@ -172,6 +175,7 @@ export default function App() {
     isCourseOpen: state.isCourseOpen, setIsCourseOpen: state.setIsCourseOpen,
     isQuizOpen: state.isQuizOpen, setIsQuizOpen: state.setIsQuizOpen,
     isTeachersDeskOpen: state.isTeachersDeskOpen, setIsTeachersDeskOpen: state.setIsTeachersDeskOpen,
+    isTeacherControlOpen: state.isTeacherControlOpen, setIsTeacherControlOpen: state.setIsTeacherControlOpen,
     isProfileOpen: state.isProfileOpen, setIsProfileOpen: state.setIsProfileOpen,
     isSettingsOpen: state.isSettingsOpen, setIsSettingsOpen: state.setIsSettingsOpen,
     isSubscriptionOpen: state.isSubscriptionOpen, setIsSubscriptionOpen: state.setIsSubscriptionOpen,
@@ -712,6 +716,16 @@ export default function App() {
                   className="absolute inset-0 z-50"
                 >
                   <TeachersDeskPanelMemo />
+                </motion.div>
+              )}
+
+              {isTeacherControlOpen && (
+                <motion.div
+                  key="teacher-control"
+                  {...PANEL_TRANSITION}
+                  className="absolute inset-0 z-50"
+                >
+                  <TeacherCommandCenterMemo />
                 </motion.div>
               )}
 

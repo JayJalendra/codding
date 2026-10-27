@@ -96,6 +96,10 @@ interface StoreState {
   setUserData: (data: User | null) => void;
   userRole: 'student' | 'teacher' | null;
   setUserRole: (role: 'student' | 'teacher' | null) => void;
+  isTeacherControlOpen: boolean;
+  setIsTeacherControlOpen: (val: boolean | ((prev: boolean) => boolean)) => void;
+  isBroadcastingTopic: boolean;
+  setIsBroadcastingTopic: (val: boolean | ((prev: boolean) => boolean)) => void;
   isAuthReady: boolean;
   setIsAuthReady: (val: boolean) => void;
   isSettingsOpen: boolean;
@@ -228,6 +232,10 @@ export const useStore = create<StoreState>()(
       setUserData: (data) => set({ userData: data }),
       userRole: null,
       setUserRole: (role) => set({ userRole: role }),
+      isTeacherControlOpen: false,
+      setIsTeacherControlOpen: (val) => set((state) => ({ isTeacherControlOpen: typeof val === 'function' ? val(state.isTeacherControlOpen) : val })),
+      isBroadcastingTopic: true,
+      setIsBroadcastingTopic: (val) => set((state) => ({ isBroadcastingTopic: typeof val === 'function' ? val(state.isBroadcastingTopic) : val })),
       isAuthReady: false,
       setIsAuthReady: (val) => set({ isAuthReady: val }),
       isSettingsOpen: false,
