@@ -1,6 +1,7 @@
 import { collection, doc, getDoc, getDocs, setDoc, deleteDoc } from 'firebase/firestore';
 import { db, handleFirestoreError, OperationType } from './firebaseService';
 import { preloadedCourses } from '../data/preloadedCourses';
+import { getGradeAwareCourse } from '../data/classCurriculum';
 
 export interface Quiz {
   question: string;
@@ -39,6 +40,9 @@ export interface MathSection {
   intro: string;
   formula: string; // Store as string (could be HTML/LaTeX)
   variables: { symbol: string; definition: string }[];
+  minGradeLevel?: number; // Minimum recommended grade (e.g. 9 or 11)
+  isEnrichment?: boolean; // If true, marked as optional advanced enrichment
+  prerequisites?: string[]; // Prerequisites to understand this formula
 }
 
 export interface ConclusionSection {
@@ -50,6 +54,12 @@ export interface ConclusionSection {
 
 export interface CourseData {
   id?: string;
+  classId?: string;
+  subjectId?: string;
+  chapterId?: string;
+  topicId?: string;
+  gradeLevel?: number; // 1 to 12
+  ageBand?: string; // e.g. "Ages 6–8", "Ages 11–14"
   title: string;
   subtitle: string;
   intro: string;
@@ -58,6 +68,19 @@ export interface CourseData {
   duration?: string;
   iconName?: string;
   color?: string;
+
+  // Grade-Aware Pedagogical Sections
+  whyLearnThis?: string;
+  visualExploration?: string;
+  howItWorks?: string;
+  realLifeConnection?: string;
+  tryItYourself?: string;
+  misconceptions?: string[];
+  recap?: string[];
+  challengeQuestion?: string;
+  prerequisites?: string[];
+  curriculumReference?: string;
+
   sections: RichSection[];
   math?: MathSection;
   conclusion?: ConclusionSection;
@@ -79,10 +102,11 @@ export const contentService = {
     }
   },
 
-  async getCourse(id: string): Promise<CourseData | null> {
+  async getCourse(id: string, classId?: string): Promise<CourseData | null> {
     if (db) {
       try {
-        const docRef = doc(db, COLLECTION_NAME, id);
+        const docId = classId ? `${classId}_${id}` : id;
+        const docRef = doc(db, COLLECTION_NAME, docId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           return { id: docSnap.id, ...docSnap.data() } as CourseData;
@@ -93,8 +117,8 @@ export const contentService = {
       }
     }
     
-    // Fallback to preloaded content
-    return preloadedCourses[id] || null;
+    // Resolve via Grade-Aware Curriculum intelligence
+    return getGradeAwareCourse(id, classId);
   },
 
   async saveCourse(id: string, courseData: Omit<CourseData, 'id'>): Promise<void> {

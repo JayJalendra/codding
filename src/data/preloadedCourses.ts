@@ -6118,7 +6118,7 @@ export const preloadedCourses: Record<string, CourseData> = {
         completed: false,
         objectives: ["Define biodiversity", "Give examples of rainforest species", "Explain food chain relationships in the rainforest"],
         interactiveLabel: "Meet the Species",
-        interactiveType: "interactive-quiz",
+        interactiveType: "quiz-only",
         quiz: {
           question: "What does the word 'biodiversity' mean?",
           options: ["The number of rivers in a forest", "The variety of life in a particular habitat", "The total rainfall in a year", "The height of the tallest trees"],
@@ -6213,7 +6213,7 @@ export const preloadedCourses: Record<string, CourseData> = {
         completed: false,
         objectives: ["Explain why deserts have large temperature swings", "Identify major deserts on a map", "Describe how sand dunes form"],
         interactiveLabel: "Desert Map",
-        interactiveType: "interactive-quiz",
+        interactiveType: "quiz-only",
         quiz: {
           question: "Which is the largest hot desert in the world?",
           options: ["Arabian Desert", "Gobi Desert", "Sahara Desert", "Atacama Desert"],
@@ -6307,7 +6307,7 @@ export const preloadedCourses: Record<string, CourseData> = {
         completed: false,
         objectives: ["List the EF scale categories", "Match EF ratings to expected wind speeds", "Describe the damage caused by an EF3 tornado"],
         interactiveLabel: "EF Scale Explorer",
-        interactiveType: "interactive-quiz",
+        interactiveType: "quiz-only",
         quiz: {
           question: "Which EF scale rating represents the most powerful tornadoes with winds over 322 km/h?",
           options: ["EF2", "EF3", "EF4", "EF5"],
@@ -6320,7 +6320,7 @@ export const preloadedCourses: Record<string, CourseData> = {
         completed: false,
         objectives: ["Identify safe shelter locations during a tornado", "Explain how Doppler radar detects tornadoes", "Create a basic emergency plan"],
         interactiveLabel: "Safety Planner",
-        interactiveType: "interactive-quiz",
+        interactiveType: "quiz-only",
         quiz: {
           question: "During a tornado warning, where is the safest place to be inside a building?",
           options: ["Top floor near a window to observe", "Basement or interior room on lowest floor", "Garage with the door open", "Near an exterior wall"],
@@ -6401,7 +6401,7 @@ export const preloadedCourses: Record<string, CourseData> = {
         completed: false,
         objectives: ["Distinguish between shield and stratovolcanoes", "Locate the Pacific Ring of Fire on a map", "Connect volcanic activity to plate boundaries"],
         interactiveLabel: "Plate Boundary Map",
-        interactiveType: "interactive-quiz",
+        interactiveType: "quiz-only",
         quiz: {
           question: "The 'Ring of Fire' refers to which geological feature?",
           options: ["A chain of active volcanoes and earthquake zones around the Pacific Ocean", "A series of fire-coloured rock formations in the Sahara", "The orbit path of a near-Earth asteroid", "Hot springs found along the equator"],
@@ -6509,7 +6509,7 @@ export const preloadedCourses: Record<string, CourseData> = {
         completed: false,
         objectives: ["Describe SCRAM procedure and ECCS", "Compare Generation II and Generation IV reactor safety features", "Evaluate arguments for and against nuclear energy as a climate solution"],
         interactiveLabel: "Safety Case Study",
-        interactiveType: "interactive-quiz",
+        interactiveType: "quiz-only",
         quiz: {
           question: "What is the SI unit used to measure the biological effect of ionising radiation on the human body?",
           options: ["Becquerel (Bq)", "Gray (Gy)", "Sievert (Sv)", "Curie (Ci)"],
@@ -6604,7 +6604,7 @@ export const preloadedCourses: Record<string, CourseData> = {
         completed: false,
         objectives: ["Derive relativistic kinetic energy", "Apply the energy-momentum invariant", "Connect E=mc² to nuclear binding energy"],
         interactiveLabel: "Energy Calculator",
-        interactiveType: "interactive-quiz",
+        interactiveType: "quiz-only",
         quiz: {
           question: "What does the equation E = mc² fundamentally state?",
           options: ["Energy and momentum are always conserved in collisions", "The speed of light depends on the observer's frame", "Mass and energy are equivalent and interconvertible", "Gravity curves the path of electromagnetic waves"],
@@ -6699,7 +6699,7 @@ export const preloadedCourses: Record<string, CourseData> = {
         completed: false,
         objectives: ["Describe the convolution operation and its advantage for image data", "Explain the attention mechanism in Transformers", "Critically assess ethical considerations of large AI models"],
         interactiveLabel: "Architecture Explorer",
-        interactiveType: "interactive-quiz",
+        interactiveType: "quiz-only",
         quiz: {
           question: "Which neural network architecture uses the 'self-attention' mechanism and is the basis for large language models like GPT?",
           options: ["Convolutional Neural Network (CNN)", "Recurrent Neural Network (RNN)", "Transformer", "Restricted Boltzmann Machine (RBM)"],
@@ -6794,7 +6794,7 @@ export const preloadedCourses: Record<string, CourseData> = {
         completed: false,
         objectives: ["Explain how lipid nanoparticle mRNA vaccines work", "Interpret the immune escape significance of Omicron RBD mutations", "Apply Darwinian selection to viral variant emergence"],
         interactiveLabel: "Variant Tracker",
-        interactiveType: "interactive-quiz",
+        interactiveType: "quiz-only",
         quiz: {
           question: "How do mRNA COVID-19 vaccines (e.g. BNT162b2) induce protective immunity?",
           options: ["They inject a weakened live virus that replicates slowly", "They deliver mRNA encoding the Spike protein, which host cells translate to elicit an immune response", "They provide pre-formed antibodies that neutralise the virus directly", "They contain inactivated whole virus particles adjuvanted with aluminium salts"],
@@ -6889,7 +6889,7 @@ export const preloadedCourses: Record<string, CourseData> = {
         completed: false,
         objectives: ["Derive the gross thrust equation from Newton's 2nd law", "Explain how thermal barrier coatings extend turbine life", "Describe parameters monitored by ACARS-based EHM systems"],
         interactiveLabel: "Thrust Calculator",
-        interactiveType: "interactive-quiz",
+        interactiveType: "quiz-only",
         quiz: {
           question: "According to the jet engine thrust equation, thrust is primarily produced by:",
           options: ["Burning fuel at higher temperatures", "Increasing the mass flow rate and velocity of the exhaust relative to intake air", "Reducing the engine's overall weight", "Increasing the number of compressor stages"],
@@ -6970,7 +6970,7 @@ export const preloadedCourses: Record<string, CourseData> = {
         completed: false,
         objectives: ["Apply λ_obs = λ_emit(1+z) to calculate observed wavelength", "Explain how JWST's infrared capability complements Hubble's UV/optical coverage", "Interpret a galaxy spectrum from NIRSpec to infer redshift and composition"],
         interactiveLabel: "Redshift Explorer",
-        interactiveType: "interactive-quiz",
+        interactiveType: "quiz-only",
         quiz: {
           question: "A galaxy emits light at λ = 120 nm (Lyman-alpha UV). JWST detects it at λ = 840 nm. What is its approximate redshift z?",
           options: ["z = 3", "z = 6", "z = 10", "z = 0.5"],
@@ -7079,7 +7079,7 @@ export const preloadedCourses: Record<string, CourseData> = {
         completed: false,
         objectives: ["Explain what biosignatures Perseverance is searching for and why", "Describe the Mars Sample Return (MSR) campaign architecture", "Evaluate MOXIE's demonstration results and implications for human Mars exploration"],
         interactiveLabel: "Sample Return Mission",
-        interactiveType: "interactive-quiz",
+        interactiveType: "quiz-only",
         quiz: {
           question: "What does NASA's MOXIE experiment on the Perseverance rover produce, and why is this significant for future crewed Mars missions?",
           options: ["Water ice — to demonstrate drinking water can be extracted from the Martian regolith", "Methane fuel — to refuel the rover's propulsion system", "Oxygen (O₂) from Martian CO₂ — demonstrating in-situ resource utilisation for propellant and life support", "Nitrogen — to supplement the rover's atmosphere for instrument operation"],

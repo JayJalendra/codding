@@ -18,6 +18,9 @@ interface Message {
 export function AIPanel() {
   const { 
     activeTopic, 
+    activeClass,
+    activeSubject,
+    activeChapter,
     setIsAIPanelOpen, 
     theme, 
     setHologramConfig, 
@@ -228,7 +231,13 @@ export function AIPanel() {
         parts: [{ text: m.content }]
       }));
       
-      const stream = chatWithAIStream(history, prompt, getTopicName(activeTopic));
+      const tutorContext = {
+        topicName: getTopicName(activeTopic),
+        classId: activeClass || 'Class 1',
+        subject: activeSubject || 'Science',
+        chapter: activeChapter
+      };
+      const stream = chatWithAIStream(history, prompt, tutorContext);
       
       let fullText = "";
       let sentenceBuffer = "";

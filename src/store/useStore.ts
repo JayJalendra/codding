@@ -10,6 +10,12 @@ interface StoreState {
   setIsAppStarted: (val: boolean) => void;
   activeTopic: Topic;
   setActiveTopic: (topic: Topic | ((prev: Topic) => Topic)) => void;
+  activeClass: string;
+  setActiveClass: (cls: string | ((prev: string) => string)) => void;
+  activeSubject: string;
+  setActiveSubject: (sub: string | ((prev: string) => string)) => void;
+  activeChapter: string | null;
+  setActiveChapter: (ch: string | null | ((prev: string | null) => string | null)) => void;
   ncertSubject: 'physics' | 'physics12' | 'chemistry' | 'chemistry12' | 'maths' | 'maths12' | 'biology' | 'biology12' | 'cs';
   setNcertSubject: (subject: any) => void;
   ncertChapter: number | null;
@@ -136,6 +142,12 @@ export const useStore = create<StoreState>()(
       setIsAppStarted: (val) => set({ isAppStarted: val }),
       activeTopic: 'Dashboard',
       setActiveTopic: (topic) => set((state) => ({ activeTopic: typeof topic === 'function' ? topic(state.activeTopic) : topic })),
+      activeClass: 'Class 1',
+      setActiveClass: (cls) => set((state) => ({ activeClass: typeof cls === 'function' ? cls(state.activeClass) : cls })),
+      activeSubject: 'Our World',
+      setActiveSubject: (sub) => set((state) => ({ activeSubject: typeof sub === 'function' ? sub(state.activeSubject) : sub })),
+      activeChapter: null,
+      setActiveChapter: (ch) => set((state) => ({ activeChapter: typeof ch === 'function' ? ch(state.activeChapter) : ch })),
       ncertSubject: 'physics',
       setNcertSubject: (subject) => set({ ncertSubject: subject }),
       ncertChapter: null,

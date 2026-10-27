@@ -1,8 +1,102 @@
 import { GoogleGenAI, Modality, ThinkingLevel, Type } from '@google/genai';
 import { getPreloadedExplanation, preloadedExplanations } from '../data/preloadedExplanations';
 import { Topic } from '../types';
+import { classCurriculumRegistry, parseGradeLevel } from '../data/classCurriculum';
 
-function searchOfflineDatabase(query: string): string | null {
+export interface TutorContext {
+  topicName?: string;
+  classId?: string;
+  subject?: string;
+  chapter?: string | null;
+  detailLevel?: string;
+}
+
+export function buildGradeAwareSystemPrompt(context?: TutorContext | string): string {
+  const ctx: TutorContext = typeof context === 'string' ? { topicName: context } : (context || {});
+  const classId = ctx.classId || 'Class 1';
+  const gradeLevel = parseGradeLevel(classId);
+  const subject = ctx.subject || 'General Science';
+  const topic = ctx.topicName || 'General Topic';
+
+  let gradePedagogy = "";
+  if (gradeLevel <= 2) {
+    gradePedagogy = `
+STUDENT GRADE LEVEL: ${classId} (Ages 6–8 years: Discovery & Wonder)
+STRICT PEDAGOGICAL RULES FOR THIS GRADE:
+- The student is a young child in Class 1 or 2!
+- Use short, warm, cheerful sentences (1 to 3 sentences per idea).
+- Use familiar objects from a child's everyday world (toys, fruits, animals, merry-go-rounds, playgrounds).
+- NEVER use high school or university technical terms (e.g. absolutely NO 'Coriolis', 'Navier-Stokes', 'action potential', 'quantum', 'ATP', 'Lorentz', 'vectors').
+- NEVER use mathematical formulas or equations.
+- Focus on wonder, curiosity, and simple cause-and-effect (e.g., "Earth spins like a toy top towards the warm Sun!").
+- Ask playful, encouraging questions to check if they noticed something fun in the 3D scene.`;
+  } else if (gradeLevel <= 5) {
+    gradePedagogy = `
+STUDENT GRADE LEVEL: ${classId} (Ages 8–11 years: Exploration & Observation)
+STRICT PEDAGOGICAL RULES FOR THIS GRADE:
+- The student is in elementary school (Classes 3 to 5)!
+- Use short paragraphs and clear, friendly explanations.
+- Introduce basic scientific vocabulary with an immediate, friendly explanation (e.g., "The Equator is an imaginary belt around Earth's middle").
+- Explain simple cause and effect clearly.
+- Only introduce elementary numbers and calculations where directly relevant (e.g. 24 hours in a day).
+- Do NOT display advanced physics equations, vector calculus, or complex multi-variable formulas.
+- Connect concepts to the 3D model controls and real-world everyday phenomena.`;
+  } else if (gradeLevel <= 8) {
+    gradePedagogy = `
+STUDENT GRADE LEVEL: ${classId} (Ages 11–14 years: Conceptual Understanding & Investigation)
+STRICT PEDAGOGICAL RULES FOR THIS GRADE:
+- The student is in middle school (Classes 6 to 8, NCERT aligned)!
+- Provide structured explanations with clearly defined scientific terminology.
+- Explain WHY a phenomenon happens (the mechanism), not merely what happens.
+- Introduce foundational scientific quantities and simple equations with clearly defined SI units (e.g. Speed = Distance / Time).
+- If discussing rotational effects, explain the physical intuition before introducing any mathematical relations.
+- Connect concepts to laboratory observations, slide preparations, and guided simulations.`;
+  } else if (gradeLevel <= 10) {
+    gradePedagogy = `
+STUDENT GRADE LEVEL: ${classId} (Ages 14–16 years: Formal Scientific Reasoning)
+STRICT PEDAGOGICAL RULES FOR THIS GRADE:
+- The student is in secondary school (Classes 9 to 10, NCERT / CBSE curriculum standard)!
+- Use formal scientific terminology, laws of conservation, and cause-and-effect relationships.
+- Introduce syllabus-prescribed formulas (e.g. F = G·m₁m₂/r², F = ma, Ohm's law V = IR) with all symbols, units, and assumptions explained.
+- Provide step-by-step numerical examples, graph interpretation, and exam-oriented reasoning.
+- Keep explanations rigorous yet accessible.`;
+  } else {
+    gradePedagogy = `
+STUDENT GRADE LEVEL: ${classId} (Ages 16–18+ years: Advanced Conceptual & Mathematical Learning)
+STRICT PEDAGOGICAL RULES FOR THIS GRADE:
+- The student is in senior secondary or engineering preparatory study (Classes 11 to 12, NCERT / JEE / NEET / Advanced level)!
+- Provide comprehensive, mathematically rigorous explanations.
+- Use precise scientific definitions, equations, derivations, boundary conditions, and limitations.
+- Include formal vector/tensor notation, calculus representations, and unit dimensions where appropriate.
+- Connect theoretical physics/chemistry/biology to real-world engineering systems, research frontiers, and state-of-the-art technologies.`;
+  }
+
+  return `You are an expert AI Neural Tutor in HyperVision AI, an interactive 3D spatial educational platform.
+Current Context:
+- Active Topic: ${topic}
+- Student Class: ${classId} (Grade Level: ${gradeLevel})
+- Active Subject: ${subject}
+${ctx.chapter ? `- Active Chapter: ${ctx.chapter}` : ''}
+
+${gradePedagogy}
+
+YOUR CORE CAPABILITIES:
+1. Answer the student's questions with high pedagogical accuracy, strictly adapted to their grade level above.
+2. If the student asks to "teach me" or "start a guided lesson", break the concept into small digestible steps suitable for their age.
+3. Check for understanding with an age-appropriate question at the end.
+4. If explaining the 3D model, connect your explanation to what is visible in the 3D scene.
+
+HOLOGRAM GENERATION:
+ONLY if the user explicitly and directly asks to "generate", "create", "show", "visualize", or "build" a new hologram/object (e.g. "generate a black hole"), include a JSON tag at the very end:
+[GENERATE: {"prompt": "a highly detailed 3D holographic projection of [OBJECT], glowing neon wireframe, futuristic sci-fi style, isolated on black background"}]
+Otherwise, NEVER include the [GENERATE:] tag.
+
+OUTPUT FORMATTING:
+- Use Markdown formatting.
+- Keep explanations scannable, structured, and age-appropriate in length.`;
+}
+
+function searchOfflineDatabase(query: string, classId?: string): string | null {
   try {
     const normalizedQuery = query.toLowerCase();
     const searchTerms = normalizedQuery.split(/[\s,?\.]+/)
@@ -10,12 +104,24 @@ function searchOfflineDatabase(query: string): string | null {
       
     if (searchTerms.length === 0) return null;
 
+    // Search class curriculum first
+    if (classId) {
+      for (const [key, course] of Object.entries(classCurriculumRegistry)) {
+        if (key.startsWith(`${classId}::`)) {
+          for (const term of searchTerms) {
+            if (course.title.toLowerCase().includes(term) || course.intro.toLowerCase().includes(term)) {
+              return `**[${course.title} — ${classId}]**\n\n${course.intro}\n\n*Key takeaways:*\n${course.recap ? course.recap.map(r => `• ${r}`).join('\n') : ''}`;
+            }
+          }
+        }
+      }
+    }
+
     let bestMatch = "";
     let highestScore = 0;
 
     for (const [topic, levels] of Object.entries(preloadedExplanations)) {
-      // Prioritize the detailed level for general overview in chat
-      const text = (levels as any).detailed || (levels as any).basic || "";
+      const text = (levels as any).basic || (levels as any).detailed || "";
       let score = 0;
       for (const term of searchTerms) {
         if (topic.toLowerCase().includes(term)) score += 5; 
@@ -273,21 +379,25 @@ function isGeminiQuotaError(error: any): boolean {
          errorString.includes("resource_exhausted");
 }
 
-export async function chatWithAI(history: { role: string, parts: { text: string }[] }[], userMessage: string, topicName: string) {
+export async function chatWithAI(history: { role: string, parts: { text: string }[] }[], userMessage: string, context: TutorContext | string) {
+  const ctx: TutorContext = typeof context === 'string' ? { topicName: context } : (context || {});
+  const topicName = ctx.topicName || 'General Topic';
+  const classId = ctx.classId || 'Class 1';
+
   try {
-    const cacheKey = `tutor_cache_${topicName}_${userMessage.substring(0, 50)}`;
+    const cacheKey = `tutor_cache_${classId}_${topicName}_${userMessage.substring(0, 50)}`;
     if (typeof window !== 'undefined' && !window.navigator.onLine) {
       const cached = localStorage.getItem(cacheKey);
       if (cached) {
         return cached;
       } else {
-        const fullPrompt = history.map(h => `${h.role}: ${h.parts[0].text}`).join("\n") + `\nuser: [Context: ${topicName}] ${userMessage}`;
+        const fullPrompt = history.map(h => `${h.role}: ${h.parts[0].text}`).join("\n") + `\nuser: [Context: ${classId} - ${topicName}] ${userMessage}`;
         const nanoResponse = await tryOfflineGeminiNano(fullPrompt);
         if (nanoResponse) {
            return nanoResponse;
         }
 
-        const localData = searchOfflineDatabase(userMessage);
+        const localData = searchOfflineDatabase(userMessage, classId);
         if (localData) {
             return localData;
         }
@@ -300,7 +410,7 @@ export async function chatWithAI(history: { role: string, parts: { text: string 
       ...history,
       {
         role: 'user',
-        parts: [{ text: `[Context: Current Topic is ${topicName}] ${userMessage}` }]
+        parts: [{ text: `[Context: Student in ${classId}, Current Topic is ${topicName}] ${userMessage}` }]
       }
     ];
 
@@ -309,38 +419,7 @@ export async function chatWithAI(history: { role: string, parts: { text: string 
       contents: chatHistory,
       config: {
         tools: [{ googleSearch: {} }],
-        systemInstruction: `You are an advanced AI Tutor and Assistant for an interactive 3D educational platform.
-        
-        YOUR CAPABILITIES:
-        1. Answer ANY question the user asks with high accuracy and depth. Do not limit yourself to just the current topic. You have access to vast knowledge and LIVE global datasets via Google Search.
-        2. Always summarize up-to-date global information and datasets if the user asks for real-world knowledge.
-        3. Explain complex concepts simply or in detail as requested.
-        4. Be engaging, encouraging, and professional.
-        
-        GUIDED LESSON MODE:
-        If the user asks to "start a guided lesson" or "teach me", you MUST:
-        1. Break the topic down into small, digestible steps.
-        2. Explain ONE concept at a time.
-        3. End your response with a question to test their understanding.
-        4. Wait for their answer. If they are correct, praise them and move to the next step. If incorrect, gently correct them and re-explain before moving on.
-        5. Adapt the pace based on their responses. If they struggle, slow down and use simpler analogies.
-        
-        SPECIAL FEATURE - HOLOGRAM GENERATION:
-        ONLY if the user explicitly and directly asks to "generate", "create", "show", "visualize", or "build" a new hologram/object (e.g., "generate a black hole", "can you show me a virus model?"), you MUST trigger the hologram generator.
-        CRITICAL: NEVER include the [GENERATE:] tag during regular text explanations, guided lessons, or answering follow-up questions UNLESS the user specifically asked for a new visual model in that exact message. If you are just explaining, do NOT include the tag.
-        To do this, include a JSON block at the VERY END of your response like this:
-        [GENERATE: {"prompt": "a highly detailed 3D holographic projection of [OBJECT], glowing neon cyan and blue wireframe, futuristic sci-fi style, isolated on black background"}]
-        
-        - The prompt should be a descriptive image generation prompt.
-        - Choose colors/params that best fit the user's request.
-        
-        OUTPUT FORMATTING:
-        - Use Markdown for all responses.
-        - Use bold headers for sections.
-        - Use bullet points for lists of facts or properties.
-        - Keep explanations concise and scannable.
-        - Avoid long, dense paragraphs.
-        - If explaining an element or concept, use a "Dashboard" style layout with clear sections.`,
+        systemInstruction: buildGradeAwareSystemPrompt(ctx),
       }
     });
 
@@ -352,18 +431,18 @@ export async function chatWithAI(history: { role: string, parts: { text: string 
     }
     return text;
   } catch (error: any) {
-    const cacheKey = `tutor_cache_${topicName}_${userMessage.substring(0, 50)}`;
+    const cacheKey = `tutor_cache_${classId}_${topicName}_${userMessage.substring(0, 50)}`;
     if (isGeminiQuotaError(error)) {
       const cached = localStorage.getItem(cacheKey);
       if (cached) {
         return cached;
       }
-      const fullPrompt = history.map(h => `${h.role}: ${h.parts[0].text}`).join("\n") + `\nuser: [Context: ${topicName}] ${userMessage}`;
+      const fullPrompt = history.map(h => `${h.role}: ${h.parts[0].text}`).join("\n") + `\nuser: [Context: ${classId} - ${topicName}] ${userMessage}`;
       const nanoResponse = await tryOfflineGeminiNano(fullPrompt);
       if (nanoResponse) {
          return nanoResponse;
       }
-      const localData = searchOfflineDatabase(userMessage);
+      const localData = searchOfflineDatabase(userMessage, classId);
       if (localData) {
         return localData;
       }
@@ -372,12 +451,12 @@ export async function chatWithAI(history: { role: string, parts: { text: string 
     console.error("Chat error:", error);
     
     // Final offline fallback if network completely fails
-    const fullPrompt = history.map(h => `${h.role}: ${h.parts[0].text}`).join("\n") + `\nuser: [Context: ${topicName}] ${userMessage}`;
+    const fullPrompt = history.map(h => `${h.role}: ${h.parts[0].text}`).join("\n") + `\nuser: [Context: ${classId} - ${topicName}] ${userMessage}`;
     const nanoResponse = await tryOfflineGeminiNano(fullPrompt);
     if (nanoResponse) {
        return nanoResponse;
     }
-    const localData = searchOfflineDatabase(userMessage);
+    const localData = searchOfflineDatabase(userMessage, classId);
     if (localData) {
       return localData;
     }
@@ -385,23 +464,27 @@ export async function chatWithAI(history: { role: string, parts: { text: string 
   }
 }
 
-export async function* chatWithAIStream(history: { role: string, parts: { text: string }[] }[], userMessage: string, topicName: string) {
+export async function* chatWithAIStream(history: { role: string, parts: { text: string }[] }[], userMessage: string, context: TutorContext | string) {
+  const ctx: TutorContext = typeof context === 'string' ? { topicName: context } : (context || {});
+  const topicName = ctx.topicName || 'General Topic';
+  const classId = ctx.classId || 'Class 1';
+
   try {
-    const cacheKey = `tutor_cache_${topicName}_${userMessage.substring(0, 50)}`;
+    const cacheKey = `tutor_cache_${classId}_${topicName}_${userMessage.substring(0, 50)}`;
     if (typeof window !== 'undefined' && !window.navigator.onLine) {
       const cached = localStorage.getItem(cacheKey);
       if (cached) {
         yield cached;
         return;
       } else {
-        const fullPrompt = history.map(h => `${h.role}: ${h.parts[0].text}`).join("\n") + `\nuser: [Context: ${topicName}] ${userMessage}`;
+        const fullPrompt = history.map(h => `${h.role}: ${h.parts[0].text}`).join("\n") + `\nuser: [Context: ${classId} - ${topicName}] ${userMessage}`;
         const nanoResponse = await tryOfflineGeminiNano(fullPrompt);
         if (nanoResponse) {
            yield nanoResponse;
            return;
         }
 
-        const localData = searchOfflineDatabase(userMessage);
+        const localData = searchOfflineDatabase(userMessage, classId);
         if (localData) {
             yield localData;
             return;
@@ -416,7 +499,7 @@ export async function* chatWithAIStream(history: { role: string, parts: { text: 
       ...history,
       {
         role: 'user',
-        parts: [{ text: `[Context: Current Topic is ${topicName}] ${userMessage}` }]
+        parts: [{ text: `[Context: Student in ${classId}, Current Topic is ${topicName}] ${userMessage}` }]
       }
     ];
 
@@ -425,38 +508,7 @@ export async function* chatWithAIStream(history: { role: string, parts: { text: 
       contents: chatHistory,
       config: {
         tools: [{ googleSearch: {} }],
-        systemInstruction: `You are an advanced AI Tutor and Assistant for an interactive 3D educational platform.
-        
-        YOUR CAPABILITIES:
-        1. Answer ANY question the user asks with high accuracy and depth. Do not limit yourself to just the current topic. You have access to vast knowledge and LIVE global datasets via Google Search.
-        2. Always summarize up-to-date global information and datasets if the user asks for real-world knowledge.
-        3. Explain complex concepts simply or in detail as requested.
-        4. Be engaging, encouraging, and professional.
-        
-        GUIDED LESSON MODE:
-        If the user asks to "start a guided lesson" or "teach me", you MUST:
-        1. Break the topic down into small, digestible steps.
-        2. Explain ONE concept at a time.
-        3. End your response with a question to test their understanding.
-        4. Wait for their answer. If they are correct, praise them and move to the next step. If incorrect, gently correct them and re-explain before moving on.
-        5. Adapt the pace based on their responses. If they struggle, slow down and use simpler analogies.
-        
-        SPECIAL FEATURE - HOLOGRAM GENERATION:
-        ONLY if the user explicitly and directly asks to "generate", "create", "show", "visualize", or "build" a new hologram/object (e.g., "generate a black hole", "can you show me a virus model?"), you MUST trigger the hologram generator.
-        CRITICAL: NEVER include the [GENERATE:] tag during regular text explanations, guided lessons, or answering follow-up questions UNLESS the user specifically asked for a new visual model in that exact message. If you are just explaining, do NOT include the tag.
-        To do this, include a JSON block at the VERY END of your response like this:
-        [GENERATE: {"prompt": "a highly detailed 3D holographic projection of [OBJECT], glowing neon cyan and blue wireframe, futuristic sci-fi style, isolated on black background"}]
-        
-        - The prompt should be a descriptive image generation prompt.
-        - Choose colors/params that best fit the user's request.
-        
-        OUTPUT FORMATTING:
-        - Use Markdown for all responses.
-        - Use bold headers for sections.
-        - Use bullet points for lists of facts or properties.
-        - Keep explanations concise and scannable.
-        - Avoid long, dense paragraphs.
-        - If explaining an element or concept, use a "Dashboard" style layout with clear sections.`,
+        systemInstruction: buildGradeAwareSystemPrompt(ctx),
       }
     });
 

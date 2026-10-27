@@ -454,6 +454,7 @@ const SUBJECT_COLOR: Record<string, { dot: string; text: string; bg: string }> =
 export function Sidebar() {
   const {
     activeTopic, setActiveTopic,
+    setActiveClass, setActiveSubject,
     setIsCourseOpen,
     setIsUploadOpen,
     setIsHelpOpen,
@@ -467,6 +468,7 @@ export function Sidebar() {
     isMobile
   } = useStore(useShallow(state => ({
     activeTopic: state.activeTopic, setActiveTopic: state.setActiveTopic,
+    setActiveClass: state.setActiveClass, setActiveSubject: state.setActiveSubject,
     setIsCourseOpen: state.setIsCourseOpen,
     setIsUploadOpen: state.setIsUploadOpen,
     setIsHelpOpen: state.setIsHelpOpen,
@@ -482,13 +484,19 @@ export function Sidebar() {
 
   const isLight = theme.id === 'white';
 
-  const onSelectTopic = (topic: Topic) => {
+  const onSelectTopic = (topic: Topic, className?: string, subject?: string) => {
     if ((topic as string) === 'Transcription') {
       setIsTranscriptionOpen(!isTranscriptionOpen);
       if (isMobile) setIsSidebarOpen(false);
       return;
     }
     setActiveTopic(topic);
+    if (className && className !== 'Dashboard' && className !== 'Tools' && className !== 'Library') {
+      setActiveClass(className);
+    }
+    if (subject) {
+      setActiveSubject(subject);
+    }
     setIsCourseOpen(false);
     if (topic === 'Upload') setIsUploadOpen(true);
     if (isMobile) setIsSidebarOpen(false);
@@ -633,7 +641,7 @@ export function Sidebar() {
                   item={item}
                   activeTopic={activeTopic}
                   isTranscriptionOpen={isTranscriptionOpen}
-                  onSelectTopic={onSelectTopic}
+                  onSelectTopic={() => onSelectTopic(item.id, item.className, item.subject)}
                 />
               ))}
             </div>
@@ -653,7 +661,7 @@ export function Sidebar() {
                       item={item}
                       activeTopic={activeTopic}
                       isTranscriptionOpen={isTranscriptionOpen}
-                      onSelectTopic={onSelectTopic}
+                      onSelectTopic={() => onSelectTopic(item.id, 'Dashboard', 'Overview')}
                     />
                   ))}
                 </div>
@@ -711,7 +719,7 @@ export function Sidebar() {
                                   item={item}
                                   activeTopic={activeTopic}
                                   isTranscriptionOpen={isTranscriptionOpen}
-                                  onSelectTopic={onSelectTopic}
+                                  onSelectTopic={() => onSelectTopic(item.id, cls.className, sub.subject)}
                                 />
                               ))}
                             </div>
@@ -754,7 +762,7 @@ export function Sidebar() {
                                       item={item}
                                       activeTopic={activeTopic}
                                       isTranscriptionOpen={isTranscriptionOpen}
-                                      onSelectTopic={onSelectTopic}
+                                      onSelectTopic={() => onSelectTopic(item.id, cls.className, sub.subject)}
                                     />
                                   ))}
                                 </motion.div>

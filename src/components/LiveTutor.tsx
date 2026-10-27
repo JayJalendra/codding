@@ -3,11 +3,12 @@ import { X, Mic, MicOff, Volume2, VolumeX, Bot, Sparkles, Loader2, Waves, Messag
 import { motion, AnimatePresence } from 'motion/react';
 import { GoogleGenAI, Modality, LiveServerMessage } from "@google/genai";
 import { Theme } from '../types';
+import { buildGradeAwareSystemPrompt } from '../services/geminiService';
 
 import { useStore } from '../store/useStore';
 
 export function LiveTutor() {
-  const { activeTopic, setIsLiveTutorOpen, theme } = useStore();
+  const { activeTopic, activeClass, activeSubject, setIsLiveTutorOpen, theme } = useStore();
   const onClose = () => setIsLiveTutorOpen(false);
 
   const [isConnected, setIsConnected] = useState(false);
@@ -78,13 +79,11 @@ export function LiveTutor() {
           speechConfig: {
             voiceConfig: { prebuiltVoiceConfig: { voiceName: "Zephyr" } },
           },
-          systemInstruction: `You are a helpful and engaging AI Tutor in a 3D holographic classroom. 
-          The current topic is ${activeTopic}. 
-          Provide personalized, clear, and encouraging explanations. 
-          Keep your responses conversational and concise for real-time voice interaction. 
-          If the student seems confused, offer simpler analogies. 
-          Ask follow-up questions to ensure they understand.
-          CRITICAL: Do NOT attempt to trigger hologram generation or use the [GENERATE:] tag in this voice session. Focus entirely on auditory instruction.`,
+          systemInstruction: buildGradeAwareSystemPrompt({
+            topicName: activeTopic,
+            classId: activeClass || 'Class 1',
+            subject: activeSubject || 'General Science'
+          }),
           inputAudioTranscription: {},
           outputAudioTranscription: {},
         },
