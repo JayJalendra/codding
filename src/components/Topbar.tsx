@@ -328,6 +328,24 @@ export function Topbar() {
           </AnimatePresence>
         </div>
 
+        {/* Theme Toggle - always visible */}
+        <motion.button
+          whileHover={{ scale: 1.1, rotate: 15 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={toggleTheme}
+          title={theme.id === 'white' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+          className={`p-2.5 rounded-full border transition-all shadow-lg ${
+            theme.id === 'white'
+              ? 'bg-zinc-900/10 border-zinc-300/40 text-zinc-700 hover:bg-zinc-900/20'
+              : 'bg-amber-500/10 border-amber-500/30 text-amber-300 hover:bg-amber-500/20 shadow-[0_0_15px_rgba(251,191,36,0.15)]'
+          }`}
+        >
+          {theme.id === 'white'
+            ? <Moon size={16} />
+            : <Sun size={16} />
+          }
+        </motion.button>
+
         <div className="flex items-center gap-1.5 px-1.5 py-1.5 liquid-glass rounded-full border border-white/10 shadow-2xl">
           <motion.button 
             whileHover={{ scale: 1.05 }}
