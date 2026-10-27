@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, CheckCircle2, XCircle, Trophy, ArrowRight, HelpCircle, BrainCircuit } from 'lucide-react';
+import { X, CheckCircle2, XCircle, Trophy, ArrowRight, HelpCircle, BrainCircuit, Plus, Sparkles, Trash2 } from 'lucide-react';
 import { Topic, Theme } from '../types';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -154,11 +154,28 @@ const QUIZ_DATA: Record<string, Question[]> = {
 import { useStore } from '../store/useStore';
 
 export function QuizPanel() {
-  const { activeTopic, setIsQuizOpen, theme } = useStore();
+  const { activeTopic, setIsQuizOpen, theme, userRole, user } = useStore();
+  const isTeacher = userRole === 'teacher' || user?.role === 'teacher';
   const onClose = () => setIsQuizOpen(false);
   const onComplete = (score: number, total: number) => {
     console.log(`Quiz complete: ${score}/${total}`);
   };
+
+  // Local state for custom questions added by teacher for the active topic
+  const [customQuestions, setCustomQuestions] = useState<Question[]>(() => {
+    try {
+      const saved = localStorage.getItem(`custom_quiz_${activeTopic}`);
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const [isAddingQuestion, setIsAddingQuestion] = useState(false);
+  const [newQuestionText, setNewQuestionText] = useState('');
+  const [newOptions, setNewOptions] = useState(['', '', '', '']);
+  const [newCorrectAnswer, setNewCorrectAnswer] = useState(0);
+  const [newExplanation, setNewExplanation] = useState('');
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -166,8 +183,39 @@ export function QuizPanel() {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
 
-  const questions = QUIZ_DATA[activeTopic] || QUIZ_DATA['default'];
+  const baseQuestions = QUIZ_DATA[activeTopic] || QUIZ_DATA['default'];
+  const questions = [...baseQuestions, ...customQuestions];
   const currentQuestion = questions[currentQuestionIndex];
+
+  const handleSaveQuestion = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newQuestionText.trim() || newOptions.some(opt => !opt.trim())) {
+      alert('Please fill out the question text and all 4 options.');
+      return;
+    }
+
+    const created: Question = {
+      id: Date.now(),
+      text: newQuestionText.trim(),
+      options: newOptions.map(o => o.trim()),
+      correctAnswer: newCorrectAnswer,
+      explanation: newExplanation.trim() || 'Custom teacher-provided question for this module.'
+    };
+
+    const updated = [...customQuestions, created];
+    setCustomQuestions(updated);
+    try {
+      localStorage.setItem(`custom_quiz_${activeTopic}`, JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+
+    setNewQuestionText('');
+    setNewOptions(['', '', '', '']);
+    setNewCorrectAnswer(0);
+    setNewExplanation('');
+    setIsAddingQuestion(false);
+  };
 
   const handleAnswer = (optionIndex: number) => {
     if (isAnswered) return;
@@ -217,17 +265,117 @@ export function QuizPanel() {
               <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">{activeTopic} Module</p>
             </div>
           </div>
-          <button 
-            onClick={onClose}
-            className="p-2 hover:bg-white/10 rounded-full transition-colors text-zinc-400 hover:text-white"
-          >
-            <X size={20} />
-          </button>
+          <div className="flex items-center gap-2">
+            {isTeacher && (
+              <button
+                onClick={() => setIsAddingQuestion(!isAddingQuestion)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all ${
+                  isAddingQuestion 
+                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' 
+                    : 'bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.2)]'
+                }`}
+              >
+                <Plus size={14} />
+                <span>{isAddingQuestion ? 'Cancel' : 'Add Question'}</span>
+              </button>
+            )}
+            <button 
+              onClick={onClose}
+              className="p-2 hover:bg-white/10 rounded-full transition-colors text-zinc-400 hover:text-white"
+            >
+              <X size={20} />
+            </button>
+          </div>
         </div>
 
         {/* Content */}
         <div className="p-8 overflow-y-auto">
-          {!showResults ? (
+          {isAddingQuestion ? (
+            /* Teacher Add Question Form */
+            <form onSubmit={handleSaveQuestion} className="space-y-5 animate-fade-in">
+              <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                <div className="flex items-center gap-2">
+                  <Sparkles size={16} className="text-cyan-400" />
+                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">Add Custom Question</h3>
+                </div>
+                <span className="text-[10px] font-mono text-cyan-300 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">
+                  {activeTopic}
+                </span>
+              </div>
+
+              <div>
+                <label className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block mb-1.5">Question Prompt</label>
+                <textarea
+                  required
+                  value={newQuestionText}
+                  onChange={(e) => setNewQuestionText(e.target.value)}
+                  placeholder="e.g. Which layer of the Earth experiences the highest temperature and pressure?"
+                  className="w-full h-20 p-3 rounded-xl bg-black/40 border border-white/10 text-xs text-white placeholder:text-zinc-600 focus:outline-none focus:border-cyan-500/50 resize-none"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block">Answer Options & Correct Key</label>
+                {newOptions.map((opt, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setNewCorrectAnswer(i)}
+                      className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all ${
+                        newCorrectAnswer === i 
+                          ? 'bg-emerald-500 text-white shadow-[0_0_10px_rgba(16,185,129,0.5)]' 
+                          : 'bg-white/5 text-zinc-500 hover:text-white border border-white/10'
+                      }`}
+                      title={newCorrectAnswer === i ? 'Correct answer' : 'Set as correct answer'}
+                    >
+                      {String.fromCharCode(65 + i)}
+                    </button>
+                    <input
+                      required
+                      type="text"
+                      value={opt}
+                      onChange={(e) => {
+                        const copy = [...newOptions];
+                        copy[i] = e.target.value;
+                        setNewOptions(copy);
+                      }}
+                      placeholder={`Option ${String.fromCharCode(65 + i)}`}
+                      className={`flex-1 px-3 py-2 rounded-xl bg-black/40 border text-xs text-white placeholder:text-zinc-600 focus:outline-none ${
+                        newCorrectAnswer === i ? 'border-emerald-500/50 ring-1 ring-emerald-500/30' : 'border-white/10'
+                      }`}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <div>
+                <label className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block mb-1.5">Educational Explanation</label>
+                <input
+                  type="text"
+                  value={newExplanation}
+                  onChange={(e) => setNewExplanation(e.target.value)}
+                  placeholder="Briefly explain why the correct option is right..."
+                  className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white placeholder:text-zinc-600 focus:outline-none focus:border-cyan-500/50"
+                />
+              </div>
+
+              <div className="flex gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setIsAddingQuestion(false)}
+                  className="flex-1 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 font-bold text-xs uppercase tracking-wider transition-all"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)]"
+                >
+                  Save Question
+                </button>
+              </div>
+            </form>
+          ) : !showResults ? (
             <div className="space-y-6">
               {/* Progress Bar */}
               <div className="flex items-center gap-4 mb-2">
