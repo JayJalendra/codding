@@ -23,6 +23,8 @@ interface ModuleCard {
 }
 
 const MODULES: ModuleCard[] = [
+  { id: 'NeuralNetwork', title: 'Neural Network', category: 'Computer Science', description: 'Interactive 4-layer animated deep neural network with forward signal propagation.', difficulty: 'Advanced', duration: '30 min', icon: <Cpu />, color: 'indigo', isNew: true },
+  { id: 'Virus', title: 'Coronavirus Structure', category: 'Biology', description: 'SARS-CoV-2 viral anatomy with RNA core, lipid envelope, and Fibonacci spike proteins.', difficulty: 'Intermediate', duration: '25 min', icon: <Bug />, color: 'red', isNew: true },
   { id: 'HumanBody', title: 'Human Body', category: 'Anatomy', description: 'Ultra-realistic advanced full 3D human body model with nervous and cardiovascular systems.', difficulty: 'Advanced', duration: '35 min', icon: <Heart />, color: 'red', isNew: true },
   { id: 'ClassSchedule', title: 'Class Schedule', category: 'Management', description: 'Interactive editable class schedule board.', difficulty: 'Beginner', duration: '5 min', icon: <Calendar />, color: 'blue', isNew: true },
   { id: 'DysonSphere', title: 'Dyson Sphere', category: 'Engineering', description: 'Advanced megastructure for stellar energy harvesting. Explore the swarm, shell, and hub.', difficulty: 'Advanced', duration: '50 min', icon: <Orbit />, color: 'amber', isNew: true },

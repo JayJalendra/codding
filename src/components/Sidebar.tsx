@@ -88,7 +88,14 @@ const CLASS_HIERARCHY: ClassGroup[] = [
         color: 'emerald',
         items: [
           { id: 'Globe', label: 'Our Earth', icon: <Globe size={15} /> },
-          { id: 'Rainforest', label: 'Plants & Forests', icon: <Globe size={15} />, isNew: true },
+          { id: 'Rainforest', label: 'Plants & Forests', icon: <Sparkles size={15} />, isNew: true },
+        ]
+      },
+      {
+        subject: 'Space',
+        color: 'indigo',
+        items: [
+          { id: 'SolarSystem', label: 'Planets & Solar System', icon: <Orbit size={15} />, isNew: true },
         ]
       },
       {
@@ -119,8 +126,8 @@ const CLASS_HIERARCHY: ClassGroup[] = [
         color: 'emerald',
         items: [
           { id: 'Globe', label: 'Our Earth & Maps', icon: <Globe size={15} /> },
-          { id: 'Rainforest', label: 'Forests & Plants', icon: <Globe size={15} />, isNew: true },
-          { id: 'Desert', label: 'Desert Ecosystem', icon: <Globe size={15} />, isNew: true },
+          { id: 'Rainforest', label: 'Forests & Plants', icon: <Sparkles size={15} />, isNew: true },
+          { id: 'Desert', label: 'Desert Ecosystem', icon: <Zap size={15} />, isNew: true },
         ]
       },
       {
@@ -196,8 +203,9 @@ const CLASS_HIERARCHY: ClassGroup[] = [
         subject: 'Science – Earth',
         color: 'emerald',
         items: [
-          { id: 'Rainforest', label: 'Tropical Rainforest', icon: <Globe size={15} />, isNew: true },
-          { id: 'Desert', label: 'Desert Ecosystem', icon: <Globe size={15} />, isNew: true },
+          { id: 'Rainforest', label: 'Tropical Rainforest', icon: <Sparkles size={15} />, isNew: true },
+          { id: 'Desert', label: 'Desert Ecosystem', icon: <Zap size={15} />, isNew: true },
+          { id: 'Tornado', label: 'Tornado & Weather', icon: <Zap size={15} />, isNew: true },
           { id: 'Volcano', label: 'Volcanoes', icon: <Zap size={15} />, isNew: true },
         ]
       },
@@ -378,12 +386,20 @@ const CLASS_HIERARCHY: ClassGroup[] = [
         subject: 'Engineering',
         color: 'orange',
         items: [
+          { id: 'NeuralNetwork', label: 'Neural Network', icon: <Cpu size={15} />, isNew: true },
           { id: 'AircraftAerodynamics', label: 'Advanced Aerodynamics', icon: <Rocket size={15} />, isNew: true },
           { id: 'FingerprintSensor', label: 'Fingerprint Sensor', icon: <Cpu size={15} />, isNew: true },
           { id: 'Display', label: 'LCD Display', icon: <Monitor size={15} />, isNew: true },
           { id: 'Satellite', label: 'Satellite System', icon: <Orbit size={15} />, isNew: true },
           { id: 'DysonSphere', label: 'Dyson Sphere', icon: <Orbit size={15} />, isNew: true },
           { id: 'Missile', label: 'Missile Technology', icon: <Rocket size={15} />, isNew: true },
+        ]
+      },
+      {
+        subject: 'Biology',
+        color: 'emerald',
+        items: [
+          { id: 'Virus', label: 'Coronavirus (SARS-CoV-2)', icon: <Activity size={15} />, isNew: true },
         ]
       },
     ]

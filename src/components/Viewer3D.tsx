@@ -47,6 +47,11 @@ import { VolcanoModel } from '../models/VolcanoModel';
 import { SatelliteModel } from '../models/SatelliteModel';
 import { DysonSphereModel } from '../models/DysonSphereModel';
 import { AdvancedMedicalBody } from '../models/AdvancedMedicalBody';
+import { TornadoModel } from '../models/TornadoModel';
+import { RainforestModel } from '../models/RainforestModel';
+import { DesertModel } from '../models/DesertModel';
+import { NeuralNetworkModel } from '../models/NeuralNetworkModel';
+import { VirusModel } from '../models/VirusModel';
 import { useHoloAudio } from '../hooks/useHoloAudio';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -1046,6 +1051,8 @@ function ModelContainer({
       {activeTopic === 'Volcano' && <VolcanoModel showLabels={isAppStarted} />}
       {activeTopic === 'Satellite' && <SatelliteModel />}
       {activeTopic === 'DysonSphere' && <DysonSphereModel showLabels={isAppStarted} isMobile={isMobile} />}
+      {activeTopic === 'NeuralNetwork' && <NeuralNetworkModel showLabels={isAppStarted} />}
+      {activeTopic === 'Virus' && <VirusModel showLabels={isAppStarted} />}
       
       {/* Automotive Modules */}
       {activeTopic === 'Missile' && <MissileModel isSoundEnabled={isSoundEnabled} />}
@@ -1058,6 +1065,11 @@ function ModelContainer({
       {/* History Modules */}
       {activeTopic === 'AncientRome' && <ColosseumModel showLabels={isAppStarted} />}
       {activeTopic === 'Pyramid' && <PyramidModel showLabels={isAppStarted} />}
+
+      {/* Environment & Nature Modules */}
+      {activeTopic === 'Rainforest' && <RainforestModel showLabels={isAppStarted} />}
+      {activeTopic === 'Desert' && <DesertModel showLabels={isAppStarted} />}
+      {activeTopic === 'Tornado' && <TornadoModel showLabels={isAppStarted} />}
     </>
   );
 }
