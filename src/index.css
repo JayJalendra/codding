@@ -13,9 +13,12 @@
   * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* Hardware acceleration for ultra-smooth animations */
-    backface-visibility: hidden;
-    perspective: 1000;
+  }
+  html, body, #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
   }
   body {
     @apply font-sans bg-zinc-950 text-zinc-100 antialiased overflow-hidden;
@@ -23,7 +26,6 @@
     overscroll-behavior: none;
     height: 100dvh;
     width: 100vw;
-    position: fixed;
     scroll-behavior: smooth;
   }
   
