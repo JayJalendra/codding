@@ -271,7 +271,7 @@ export const AirDrawPanel: React.FC = () => {
     try {
       const base64Image = canvas.toDataURL('image/jpeg').split(',')[1];
       
-      const apiKey = process.env['API_KEY'] || process.env.GEMINI_API_KEY;
+      const apiKey = (typeof process !== 'undefined' && (process.env['API_KEY'] || process.env.GEMINI_API_KEY)) || '';
       const ai = new GoogleGenAI({ apiKey: apiKey as string });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',

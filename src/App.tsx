@@ -284,7 +284,14 @@ export default function App() {
       setIsAuthReady(true);
     });
 
-    return () => unsubscribe();
+    const safetyTimer = setTimeout(() => {
+      setIsAuthReady(true);
+    }, 2000);
+
+    return () => {
+      clearTimeout(safetyTimer);
+      unsubscribe();
+    };
   }, []);
 
   useEffect(() => {

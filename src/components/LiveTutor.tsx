@@ -69,7 +69,7 @@ export function LiveTutor() {
   const startSession = async () => {
     setIsConnecting(true);
     try {
-      const apiKey = process.env['API_KEY'] || process.env.GEMINI_API_KEY;
+      const apiKey = (typeof process !== 'undefined' && (process.env['API_KEY'] || process.env.GEMINI_API_KEY)) || '';
       const ai = new GoogleGenAI({ apiKey: apiKey as string });
       
       sessionRef.current = await ai.live.connect({

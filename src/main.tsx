@@ -63,12 +63,15 @@ import {createRoot} from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import { runAuthorIntegrityCheck } from './constants/author';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 // Run author attribution integrity check on every boot
 runAuthorIntegrityCheck();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </StrictMode>,
 );
