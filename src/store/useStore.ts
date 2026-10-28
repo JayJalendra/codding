@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { Topic, User, Task, ClassSchedule } from '../types';
+import { Topic, User, Task, ClassSchedule, Assignment, StudentSubmission } from '../types';
 import { Theme, DEFAULT_THEME } from '../constants/themes';
 import { AdvancedConfig } from '../models/CustomModel';
 import { StudentProgress } from '../services/progressService';
@@ -110,6 +110,14 @@ interface StoreState {
   setIsClassScheduleOpen: (val: boolean | ((prev: boolean) => boolean)) => void;
   isTaskManagerOpen: boolean;
   setIsTaskManagerOpen: (val: boolean | ((prev: boolean) => boolean)) => void;
+  isAssignmentsOpen: boolean;
+  setIsAssignmentsOpen: (val: boolean | ((prev: boolean) => boolean)) => void;
+  assignments: Assignment[];
+  setAssignments: (assignments: Assignment[] | ((prev: Assignment[]) => Assignment[])) => void;
+  addAssignment: (assignment: Assignment) => void;
+  deleteAssignment: (id: string) => void;
+  submissions: StudentSubmission[];
+  addSubmission: (sub: StudentSubmission) => void;
   isVirtualLabOpen: boolean;
   setIsVirtualLabOpen: (val: boolean | ((prev: boolean) => boolean)) => void;
   isCircuitBuilderOpen: boolean;
@@ -246,6 +254,51 @@ export const useStore = create<StoreState>()(
       setIsClassScheduleOpen: (val) => set((state) => ({ isClassScheduleOpen: typeof val === 'function' ? val(state.isClassScheduleOpen) : val })),
       isTaskManagerOpen: false,
       setIsTaskManagerOpen: (val) => set((state) => ({ isTaskManagerOpen: typeof val === 'function' ? val(state.isTaskManagerOpen) : val })),
+      isAssignmentsOpen: false,
+      setIsAssignmentsOpen: (val) => set((state) => ({ isAssignmentsOpen: typeof val === 'function' ? val(state.isAssignmentsOpen) : val })),
+      assignments: [
+        {
+          id: 'asg-1',
+          title: 'Keplerian Orbits & Gravity Investigation',
+          description: 'Launch the Solar System model. Record planetary orbital periods, measure relative velocities at perihelion vs aphelion, and describe how gravitational force scales with distance.',
+          topic: 'SolarSystem',
+          targetClass: '9',
+          dueDate: '2026-11-05',
+          assignedBy: 'Dr. Sharma (Physics Dept)',
+          createdAt: Date.now() - 86400000,
+          totalPoints: 50,
+          submissionsCount: 14
+        },
+        {
+          id: 'asg-2',
+          title: 'Bohr Atomic Radius & Spectral Transitions',
+          description: 'Inspect the 3D Atom model. Identify electron shells, calculate emission frequencies for n=3 to n=2 transitions, and complete the quantum orbital check.',
+          topic: 'Atom',
+          targetClass: '11',
+          dueDate: '2026-11-08',
+          assignedBy: 'Dr. Sharma (Physics Dept)',
+          createdAt: Date.now() - 43200000,
+          totalPoints: 100,
+          submissionsCount: 9
+        }
+      ],
+      setAssignments: (val) => set((state) => ({ assignments: typeof val === 'function' ? val(state.assignments) : val })),
+      addAssignment: (asg) => set((state) => ({ assignments: [asg, ...state.assignments] })),
+      deleteAssignment: (id) => set((state) => ({ assignments: state.assignments.filter(a => a.id !== id) })),
+      submissions: [
+        {
+          id: 'sub-1',
+          assignmentId: 'asg-1',
+          studentUid: 's1',
+          studentName: 'Aarav Sharma',
+          submittedAt: Date.now() - 3600000,
+          answers: { 'q1': 'Observed higher velocity at perihelion consistent with Kepler second law.' },
+          grade: 48,
+          feedback: 'Excellent observation and accurate mathematical derivation.',
+          status: 'graded'
+        }
+      ],
+      addSubmission: (sub) => set((state) => ({ submissions: [sub, ...state.submissions] })),
       isVirtualLabOpen: false,
       setIsVirtualLabOpen: (val) => set((state) => ({ isVirtualLabOpen: typeof val === 'function' ? val(state.isVirtualLabOpen) : val })),
       isCircuitBuilderOpen: false,

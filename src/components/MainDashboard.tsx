@@ -362,21 +362,32 @@ export function MainDashboard() {
                     size={20}
                     className="text-indigo-600 dark:text-indigo-400"
                   />
-                  Neural Retention Matrix
+                  {isTeacher ? "Classroom Engagement & Performance Telemetry" : "Neural Retention Matrix"}
                 </h3>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium tracking-wide">
-                  Analysis of long-term concept synthesis vs engagement
+                  {isTeacher 
+                    ? "Aggregated cohort retention and weekly interactive laboratory hours" 
+                    : "Analysis of long-term concept synthesis vs engagement"}
                 </p>
               </div>
-              <div className="bg-white/50 dark:bg-black/40 p-1 rounded-xl flex items-center backdrop-blur-xl border border-zinc-200/60 dark:border-white/10 shadow-inner">
-                {["7D", "30D", "90D"].map((range, i) => (
-                  <button
-                    key={range}
-                    className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-[0.2em] transition-colors ${i === 0 ? "bg-white dark:bg-white/10 text-zinc-900 dark:text-white shadow-sm border border-zinc-200/50 dark:border-white/10" : "text-zinc-500 hover:text-zinc-900 dark:hover:text-white"}`}
-                  >
-                    {range}
-                  </button>
-                ))}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => useStore.getState().setIsAssignmentsOpen(true)}
+                  className="px-4 py-1.5 rounded-xl text-xs font-bold bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 transition-all flex items-center gap-1.5"
+                >
+                  <Award size={14} />
+                  <span>{isTeacher ? "Manage Coursework" : "View Assignments"}</span>
+                </button>
+                <div className="bg-white/50 dark:bg-black/40 p-1 rounded-xl flex items-center backdrop-blur-xl border border-zinc-200/60 dark:border-white/10 shadow-inner">
+                  {["7D", "30D", "90D"].map((range, i) => (
+                    <button
+                      key={range}
+                      className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-[0.2em] transition-colors ${i === 0 ? "bg-white dark:bg-white/10 text-zinc-900 dark:text-white shadow-sm border border-zinc-200/50 dark:border-white/10" : "text-zinc-500 hover:text-zinc-900 dark:hover:text-white"}`}
+                    >
+                      {range}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 

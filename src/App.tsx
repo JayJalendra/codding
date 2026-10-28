@@ -51,6 +51,7 @@ import { SubscriptionPanel } from './components/SubscriptionPanel';
 import { ClassSchedulePanel } from './components/ClassSchedulePanel';
 import { TaskManagerPanel } from './components/TaskManagerPanel';
 import { VirtualLabPanel } from './components/VirtualLabPanel';
+import { AssignmentsPanel } from './components/AssignmentsPanel';
 import { useStore } from './store/useStore';
 import { useShallow } from 'zustand/react/shallow';
 import { PANEL_TRANSITION, SMOOTH_SPRING, ULTRA_SMOOTH_SPRING } from './constants/animations';
@@ -91,6 +92,7 @@ const TeacherCommandCenterMemo = React.memo(TeacherCommandCenter);
 const AirDrawPanelMemo = React.memo(AirDrawPanel);
 const TaskManagerPanelMemo = React.memo(TaskManagerPanel);
 const VirtualLabPanelMemo = React.memo(VirtualLabPanel);
+const AssignmentsPanelMemo = React.memo(AssignmentsPanel);
 const CircuitBuilderMemo = React.memo(CircuitBuilder);
 
 const AttendancePanelMemo = React.memo(AttendancePanel);
@@ -140,6 +142,7 @@ export default function App() {
     isLessonCreatorOpen, setIsLessonCreatorOpen,
     isTaskManagerOpen, setIsTaskManagerOpen,
     isVirtualLabOpen, setIsVirtualLabOpen,
+    isAssignmentsOpen, setIsAssignmentsOpen,
     isCircuitBuilderOpen, setIsCircuitBuilderOpen,
     isHelpOpen, setIsHelpOpen,
     isUploadOpen, setIsUploadOpen,
@@ -187,6 +190,7 @@ export default function App() {
     isLessonCreatorOpen: state.isLessonCreatorOpen, setIsLessonCreatorOpen: state.setIsLessonCreatorOpen,
     isTaskManagerOpen: state.isTaskManagerOpen, setIsTaskManagerOpen: state.setIsTaskManagerOpen,
     isVirtualLabOpen: state.isVirtualLabOpen, setIsVirtualLabOpen: state.setIsVirtualLabOpen,
+    isAssignmentsOpen: state.isAssignmentsOpen, setIsAssignmentsOpen: state.setIsAssignmentsOpen,
     isCircuitBuilderOpen: state.isCircuitBuilderOpen, setIsCircuitBuilderOpen: state.setIsCircuitBuilderOpen,
     isHelpOpen: state.isHelpOpen, setIsHelpOpen: state.setIsHelpOpen,
     isUploadOpen: state.isUploadOpen, setIsUploadOpen: state.setIsUploadOpen,
@@ -564,7 +568,7 @@ export default function App() {
                   <div className="w-full h-full bg-black flex items-center justify-center">
                     <div className="text-zinc-500 animate-pulse font-mono text-sm">INITIALIZING BIOMETRIC INTERFACE...</div>
                   </div>
-                ) : (isVirtualLabOpen || isProgressOpen || isLibraryOpen || isSyllabusOpen || isLessonCreatorOpen || isTaskManagerOpen || activeTopic === 'NCERTBooks') ? (
+                ) : (isVirtualLabOpen || isAssignmentsOpen || isProgressOpen || isLibraryOpen || isSyllabusOpen || isLessonCreatorOpen || isTaskManagerOpen || activeTopic === 'NCERTBooks') ? (
                   <div className="w-full h-full bg-black flex items-center justify-center">
                     <div className="text-zinc-500 animate-pulse font-mono text-sm uppercase tracking-[0.3em]">Holo-Engine Suspended (Resource Optimization)</div>
                   </div>
@@ -786,6 +790,16 @@ export default function App() {
                   className="absolute inset-0 z-50"
                 >
                   <VirtualLabPanelMemo />
+                </motion.div>
+              )}
+
+              {isAssignmentsOpen && (
+                <motion.div
+                  key="assignments-panel"
+                  {...PANEL_TRANSITION}
+                  className="absolute inset-0 z-50"
+                >
+                  <AssignmentsPanelMemo />
                 </motion.div>
               )}
 

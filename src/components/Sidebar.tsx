@@ -645,17 +645,19 @@ export function Sidebar() {
 
           {/* Quick buttons */}
           <div className="grid grid-cols-2 gap-2">
-            {(['Library', 'Syllabus'] as const).map((btn) => (
+            {(['Library', 'Assignments'] as const).map((btn) => (
               <motion.button 
                 key={btn}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={btn === 'Library' ? onOpenLibrary : onOpenSyllabus}
+                onClick={btn === 'Library' ? onOpenLibrary : () => useStore.getState().setIsAssignmentsOpen(true)}
                 className="group relative flex flex-col items-center justify-center gap-1.5 p-3 liquid-glass rounded-2xl transition-all duration-300 overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                {btn === 'Library' ? <Library className="text-indigo-400" size={16} /> : <BookOpenText className="text-pink-400" size={16} />}
-                <span className={`text-[9px] font-black ${btn === 'Library' ? 'text-indigo-400' : 'text-pink-400'} uppercase tracking-[0.1em]`}>{btn}</span>
+                {btn === 'Library' ? <Library className="text-indigo-400" size={16} /> : <BookOpenText className="text-emerald-400" size={16} />}
+                <span className={`text-[9px] font-black ${btn === 'Library' ? 'text-indigo-400' : 'text-emerald-400'} uppercase tracking-[0.1em]`}>
+                  {btn === 'Assignments' ? (userRole === 'teacher' ? 'Assessments' : 'Assignments') : btn}
+                </span>
               </motion.button>
             ))}
           </div>

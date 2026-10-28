@@ -55,6 +55,32 @@ export interface Task {
   dueDate?: string; // YYYY-MM-DD
 }
 
+export interface Assignment {
+  id: string;
+  title: string;
+  description: string;
+  topic: Topic;
+  targetClass: string;
+  dueDate: string;
+  assignedBy: string; // teacher displayName / uid
+  createdAt: number;
+  totalPoints: number;
+  submissionsCount?: number;
+}
+
+export interface StudentSubmission {
+  id: string;
+  assignmentId: string;
+  studentUid: string;
+  studentName: string;
+  submittedAt: number;
+  answers: Record<string, string>;
+  notes?: string;
+  grade?: number;
+  feedback?: string;
+  status: 'submitted' | 'graded';
+}
+
 export type ClassSchedule = Record<string, string>;
 
 export type { Theme } from './constants/themes';

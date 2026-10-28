@@ -4,7 +4,7 @@ import {
   Menu, Bot, Maximize, Minimize, Bell, Hand, Volume2, VolumeX, FileText, 
   Mic, MicOff, Trophy, BookOpen, BrainCircuit, ChevronDown, Settings2,
   Monitor, GraduationCap, Info, Captions, Pencil, Calendar, PenTool, CheckSquare, FlaskConical, Sun, Moon,
-  ShieldCheck, Radio, Presentation
+  ShieldCheck, Radio, Presentation, FileCheck
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useStore } from '../store/useStore';
@@ -36,6 +36,7 @@ export function Topbar() {
     setIsTeachersDeskOpen,
     setIsTeacherControlOpen,
     setIsLessonCreatorOpen,
+    setIsAssignmentsOpen,
     setIsSidebarOpen,
     setIsAppStarted,
     user,
@@ -263,6 +264,7 @@ export function Topbar() {
               >
                 {[
                   { icon: ShieldCheck, label: 'Teacher Command Center', color: 'text-cyan-400', action: () => useStore.getState().setIsTeacherControlOpen(curr => !curr), role: 'teacher' },
+                  { icon: FileCheck, label: userRole === 'teacher' ? 'Coursework & Assessments' : 'My Assignments', color: 'text-indigo-400', action: () => useStore.getState().setIsAssignmentsOpen(curr => !curr) },
                   { icon: BookOpen, label: 'Course Material', color: 'text-blue-400', action: toggleCourse },
                   { icon: BrainCircuit, label: 'Knowledge Quiz', color: 'text-purple-400', action: toggleQuiz },
                   { icon: Calendar, label: userRole === 'teacher' ? 'Classroom Attendance' : 'My Attendance', color: 'text-emerald-400', action: toggleAttendance },
