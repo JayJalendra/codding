@@ -7,74 +7,100 @@ import { auth, handleFirestoreError, OperationType } from '../services/firebaseS
 import { useStore } from '../store/useStore';
 
 export const AttendancePanel: React.FC = () => {
-  const { user, setIsAttendanceOpen, theme, isTranscriptionOpen, setIsTranscriptionOpen } = useStore();
+  const { user, userRole, setIsAttendanceOpen, theme, isTranscriptionOpen, setIsTranscriptionOpen } = useStore();
   const onClose = () => setIsAttendanceOpen(false);
   const [students, setStudents] = useState<User[]>([]);
   const [attendanceRecords, setAttendanceRecords] = useState<Attendance[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const isTeacher = userRole === 'teacher' || user?.role === 'teacher';
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      // Fetch students
-      let usersQuery;
-      const role = user?.role || (user?.email?.includes('teacher') ? 'teacher' : 'student');
-      if (role === 'teacher') {
-        usersQuery = query(collection(db, 'users'), where('role', '==', 'student'));
-      } else {
-        usersQuery = query(collection(db, 'users'), where(documentId(), '==', user?.uid || 'offline_student'));
-      }
-      let usersSnapshot: any = null;
-      try {
-        usersSnapshot = await getDocs(usersQuery);
-      } catch (error) {
-        console.warn('Firestore offline or restricted, using mock student attendance directory:', error);
-      }
 
-      if (usersSnapshot && usersSnapshot.docs && usersSnapshot.docs.length > 0) {
-        const studentList = usersSnapshot.docs.map((doc: any) => ({ ...doc.data(), uid: doc.id } as User));
-        setStudents(studentList);
+      if (isTeacher) {
+        // Teacher sees all students in the classroom roster
+        let usersQuery = query(collection(db, 'users'), where('role', '==', 'student'));
+        let usersSnapshot: any = null;
+        try {
+          usersSnapshot = await getDocs(usersQuery);
+        } catch (error) {
+          console.warn('Firestore offline, using mock classroom attendance roster:', error);
+        }
+
+        if (usersSnapshot && usersSnapshot.docs && usersSnapshot.docs.length > 0) {
+          const studentList = usersSnapshot.docs.map((doc: any) => ({ ...doc.data(), uid: doc.id } as User));
+          setStudents(studentList);
+        } else {
+          setStudents([
+            { uid: 's1', displayName: 'Aarav Sharma', rollNo: 'HY-01', role: 'student', email: 'aarav@school.edu', createdAt: new Date() },
+            { uid: 's2', displayName: 'Diya Patel', rollNo: 'HY-02', role: 'student', email: 'diya@school.edu', createdAt: new Date() },
+            { uid: 's3', displayName: 'Rohan Verma', rollNo: 'HY-03', role: 'student', email: 'rohan@school.edu', createdAt: new Date() },
+            { uid: 's4', displayName: 'Ananya Iyer', rollNo: 'HY-04', role: 'student', email: 'ananya@school.edu', createdAt: new Date() },
+            { uid: 's5', displayName: 'Kabir Mehta', rollNo: 'HY-05', role: 'student', email: 'kabir@school.edu', createdAt: new Date() },
+          ]);
+        }
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        let attendanceQuery = query(collection(db, 'attendance'), where('date', '>=', today), orderBy('date', 'desc'));
+        let attendanceSnapshot: any = null;
+        try {
+          attendanceSnapshot = await getDocs(attendanceQuery);
+        } catch (error) {
+          console.warn('Firestore offline, using local attendance record:', error);
+        }
+        if (attendanceSnapshot && attendanceSnapshot.docs) {
+          const records = attendanceSnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id } as Attendance));
+          setAttendanceRecords(records);
+        } else {
+          setAttendanceRecords([
+            { studentUid: 's1', studentName: 'Aarav Sharma', rollNo: 'HY-01', date: new Date(), status: 'present' },
+            { studentUid: 's2', studentName: 'Diya Patel', rollNo: 'HY-02', date: new Date(), status: 'present' },
+            { studentUid: 's3', studentName: 'Rohan Verma', rollNo: 'HY-03', date: new Date(), status: 'absent' },
+          ]);
+        }
       } else {
-        // Fallback default students for Sandbox
+        // STUDENT ONLY SEES THEIR OWN ATTENDANCE RECORD
+        const myUid = user?.uid || 'offline_student';
+        const myName = user?.displayName || 'Sandbox Scholar';
         setStudents([
-          { uid: 's1', displayName: 'Aarav Sharma', rollNo: 'HY-01', role: 'student', email: 'aarav@school.edu', createdAt: new Date() },
-          { uid: 's2', displayName: 'Diya Patel', rollNo: 'HY-02', role: 'student', email: 'diya@school.edu', createdAt: new Date() },
-          { uid: 's3', displayName: 'Rohan Verma', rollNo: 'HY-03', role: 'student', email: 'rohan@school.edu', createdAt: new Date() },
-          { uid: 's4', displayName: 'Ananya Iyer', rollNo: 'HY-04', role: 'student', email: 'ananya@school.edu', createdAt: new Date() },
-          { uid: 's5', displayName: 'Kabir Mehta', rollNo: 'HY-05', role: 'student', email: 'kabir@school.edu', createdAt: new Date() },
+          {
+            uid: myUid,
+            displayName: myName,
+            rollNo: user?.rollNo || 'HY-2026',
+            role: 'student',
+            email: user?.email || 'student@hypervision.ai',
+            createdAt: new Date()
+          }
         ]);
-      }
 
-      // Fetch today's attendance
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      let attendanceQuery;
-      if (role === 'teacher') {
-        attendanceQuery = query(collection(db, 'attendance'), where('date', '>=', today), orderBy('date', 'desc'));
-      } else {
-        attendanceQuery = query(collection(db, 'attendance'), where('studentUid', '==', user?.uid || 'offline_student'), where('date', '>=', today), orderBy('date', 'desc'));
-      }
-      let attendanceSnapshot: any = null;
-      try {
-        attendanceSnapshot = await getDocs(attendanceQuery);
-      } catch (error) {
-        console.warn('Firestore offline, local attendance mode active:', error);
-      }
-      if (attendanceSnapshot && attendanceSnapshot.docs) {
-        const records = attendanceSnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id } as Attendance));
-        setAttendanceRecords(records);
-      } else {
-        setAttendanceRecords([
-          { studentUid: 's1', studentName: 'Aarav Sharma', rollNo: 'HY-01', date: new Date(), status: 'present' },
-          { studentUid: 's2', studentName: 'Diya Patel', rollNo: 'HY-02', date: new Date(), status: 'present' },
-          { studentUid: 's3', studentName: 'Rohan Verma', rollNo: 'HY-03', date: new Date(), status: 'absent' },
-        ]);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        let attendanceQuery = query(collection(db, 'attendance'), where('studentUid', '==', myUid), where('date', '>=', today), orderBy('date', 'desc'));
+        let attendanceSnapshot: any = null;
+        try {
+          attendanceSnapshot = await getDocs(attendanceQuery);
+        } catch (error) {
+          console.warn('Firestore offline, loading personal student attendance status:', error);
+        }
+
+        if (attendanceSnapshot && attendanceSnapshot.docs && attendanceSnapshot.docs.length > 0) {
+          const records = attendanceSnapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id } as Attendance));
+          setAttendanceRecords(records);
+        } else {
+          // Default student own status: Verified Present for today's session
+          setAttendanceRecords([
+            { studentUid: myUid, studentName: myName, rollNo: user?.rollNo || 'HY-2026', date: new Date(), status: 'present' }
+          ]);
+        }
       }
       
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [isTeacher, user]);
 
   const markAttendance = async (student: User, status: 'present' | 'absent') => {
     try {
@@ -111,9 +137,17 @@ export const AttendancePanel: React.FC = () => {
     <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm`}>
       <div className={`w-full max-w-2xl ${theme.uiBg} border ${theme.border} rounded-2xl p-6 shadow-2xl`}>
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Calendar className="text-indigo-400" /> Attendance Management
-          </h2>
+          <div>
+            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+              <Calendar className={isTeacher ? "text-cyan-400" : "text-indigo-400"} /> 
+              {isTeacher ? "Classroom Attendance Roster" : "My Attendance Status"}
+            </h2>
+            <p className="text-xs text-zinc-400 mt-1">
+              {isTeacher 
+                ? "Manage daily attendance records for enrolled students in this class."
+                : "Your personal attendance verification record for current active sessions."}
+            </p>
+          </div>
           <div className="flex gap-2">
             <button 
               onClick={() => setIsTranscriptionOpen(!isTranscriptionOpen)}
